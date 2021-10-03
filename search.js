@@ -2,7 +2,7 @@
  * @name     liteSearch
  * @desc     Light and agnostic search UI powered by Fuse.js
  * @author   Daniel Souza <me@posix.dev.br>
- * @version  2.0
+ * @version  2.1
  * @license  MIT
  */
 
@@ -133,8 +133,6 @@ import Fuse from 'fuse/fuse.esm.js'
     function parseHTML(input, results) {
       // TODO: Some procedures should be on parseResults instead like getMatch() and captureContext()
       
-      console.log(results)
-
       let bucket = ""
 
       if (results === null) {
@@ -255,21 +253,25 @@ import Fuse from 'fuse/fuse.esm.js'
     /** Init persistent user interaction listeners */
     function initUIListeners() { 
       inputEl.addEventListener("input",  instantSearch)
-      inputEl.addEventListener("search", clearSearch)  // this is the click 'x', input box shadow element to clear input, event
+      inputEl.addEventListener("search", clearSearch)  // click 'x' to clear
       inputEl.addEventListener("click",  showModal)
+      inputEl.addEventListener("keydown", inputKeyBinds)
 
       labelEl.addEventListener("click",  toggleUI)
 
       document.addEventListener("click", (event) => {
-        if (event.path[1] != parentEl) {
-          closeModal()
+        if (event.path[0] != inputEl && event.path[0] != labelEl ) {  // toggle UI if click outside input
+          toggleUI()
         }
       }, {passive: true})
 
       document.addEventListener("keydown", (event) => {
-        if (event.metaKey && event.key == "/") {  // without a modifier it can create confusion for normal uses of slash 
-          event.preventDefault()
-          toggleUI()
+        if (event.key == "/") {  // global shortcut
+          // do not trigger on inputs except search input
+          if (event.srcElement.nodeName != "INPUT" || event.path[0] == inputEl) {
+            event.preventDefault()
+            toggleUI()
+          }
         }
       })
     }
@@ -303,7 +305,6 @@ import Fuse from 'fuse/fuse.esm.js'
     function clearInput() {
       modalEl.innerHTML = "" 
       inputEl.value = ""
-      inputEl.blur()
     }
 
     function clearSearch() {
@@ -330,12 +331,10 @@ import Fuse from 'fuse/fuse.esm.js'
 
     /** Init ephemeral user interaction listeners */
     function initModalListeners() {
-      inputEl.addEventListener("keydown", inputKeyBinds)
       modalEl.addEventListener("keydown", modalKeyBinds)
     }
 
     function removeModalListeners() {
-      inputEl.removeEventListener("keydown", inputKeyBinds)
       modalEl.removeEventListener("keydown", modalKeyBinds)
     }
 
@@ -349,6 +348,7 @@ import Fuse from 'fuse/fuse.esm.js'
         case "Escape":
           event.preventDefault()
           clearSearch()
+          toggleUI()
           break
 
         case "ArrowDown":
