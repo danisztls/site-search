@@ -20,6 +20,9 @@
 
 import Fuse from 'fuse/fuse.esm.js'
 
+// otherwise
+// <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6" defer></script>
+
 (() => {
   let fuse = null
   
@@ -48,6 +51,10 @@ import Fuse from 'fuse/fuse.esm.js'
     useExtendedSearch: false,
     findAllMatches: false
   }
+
+  /* TODO: Create an options object for liteSearch.
+   * As to move all settings to a single place at the top and make component easier to reuse.
+   */
 
   fetchData()
     .then(data => {
