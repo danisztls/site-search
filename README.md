@@ -3,26 +3,37 @@ A instant search UI component for the Web aimed to be light and agnostic.
 
 ## Features
 ### Light
-It's light because it's written in modern JS and besides [Fuse.js](https://fusejs.io/) fuzzy search library it does not require any other dependency. It's a simple, not overly complicated solution, that runs locally on the browser without requiring any kind of connection to a 3rd-party. And thus it doesn't share the shortfalls of cloud-based solutions having the advantages of:
+It's written in modern JS and besides [Fuse.js](https://fusejs.io/) fuzzy search library it does not require any other dependency. It's a simple, not overly complicated solution, that runs locally on the browser without requiring any kind of connection to a 3rd-party. And thus it doesn't share the same shortfalls of cloud-based solutions and:
 
-- working when offline
-- working for content behind authentication
-- not tracking user behavior
+- works when offline
+- works for content behind authentication
+- do not track user behavior
 
-It does not provide the same level of features and maturity of Algolia's [DocSearch](https://docsearch.algolia.com/). But besides the structured search *(as in understanding headings)*, which I may add in the future, I don't think it's missing anything else that's critical. And in my experience with documentation sites, blogs and small ecommerce results are relevant and provided instantly.
+It does not provide the same level of features and maturity of Algolia's [DocSearch](https://docsearch.algolia.com/). But besides the structured search *(as in understanding headings)*, which I may add in the future, I don't think it's missing anything else that's critical.
 
 ### Agnostic
-It's agnostic because it does not require the use of any kind of framework, transpiler or tooling. It's written in pure ECMAScript *(the standardized JavaScript reference)*. And while it's written to work with Fuse.js it probably can be adapted without much effort for other similar search libraries like [Lunr.js](https://lunrjs.com/).
+It does not require the use of any kind of framework, transpiler or tooling. It's written in pure ECMAScript *(the standardized JavaScript reference)*. And while it's written to work with Fuse.js it probably can be adapted without much effort for other similar search libraries like [Lunr.js](https://lunrjs.com/).
 
 ### Accessibility
 As far as I know it's ARIA compliant and should work with screen readers but that hasn't been tested and bug reports are welcomed.
 
 ## Usage
 ### JavaScript
-For web usage, if you're not using a builder like [ESBuild](https://esbuild.github.io/) that understands imports, you will have to load both `search.js` and `Fuse.js`.
+If you're using a builder like [ESBuild](https://esbuild.github.io/) as is the case with Hugo [JS Building](https://gohugo.io/hugo-pipes/js/) you can set it to import and bundle Fuse.js. The script will fetch the data asynchronously so you don't need to defer it's loading
+
+```html
+<script src="/js/search.js" async></script>
+```
+
+Otherwise you will have to load both `search.js` and `Fuse.js` and defer loading as to avoid referencing Fuse.js before it's loaded.
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6" defer></script>
+<script src="/js/search.js" defer></script>
+```
 
 ### Data
-It expects structured data at `/index.json` containing items with key-value pairs.
+By default it expects JSON data at `/index.json` but any other URL can be set.
 
 ```json
 {
@@ -40,7 +51,7 @@ It expects structured data at `/index.json` containing items with key-value pair
 
 ### HTML
 ```html
-<form id="search" class="require-js" role="search" aria-haspopup="listbox" aria-labelledby="search-label">
+<form id="search" role="search" aria-haspopup="listbox" aria-labelledby="search-label" hidden="true">
   <label id="search-label" class="fas fa-search"></label>
 
   <input
@@ -51,6 +62,7 @@ It expects structured data at `/index.json` containing items with key-value pair
     aria-label="Search"
     autocomplete="off"
     spellcheck="false"
+    hidden="true"
   >
   </input>
 
