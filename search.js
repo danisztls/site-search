@@ -83,10 +83,10 @@ import Fuse from 'fuse/fuse.esm.js'
 
   /** Initialize the user interface */
   function initUI() {
-    const parentEl = document.querySelector("#search")
-    const labelEl = parentEl.querySelector("label")
-    const inputEl = parentEl.querySelector("input")
-    const modalEl = parentEl.querySelector("ul")
+    const formEl = document.querySelector("#search")
+    const labelEl = formEl.querySelector("label")
+    const inputEl = formEl.querySelector("input")
+    const modalEl = formEl.querySelector("ul")
 
     class Modal {
       constructor(element) {
@@ -321,8 +321,8 @@ import Fuse from 'fuse/fuse.esm.js'
 
     /** Hide/show input and modal visibility only. */
     function toggleUI() {
-      if (parentEl.hidden == true) {
-        parentEl.hidden = false
+      if (formEl.hidden == true) {
+        formEl.hidden = false
         inputEl.hidden = false
         inputEl.focus()
 
@@ -330,7 +330,7 @@ import Fuse from 'fuse/fuse.esm.js'
           showModal()
         
       } else {
-        parentEl.hidden = true
+        formEl.hidden = true
         inputEl.hidden = true
         closeModal()
       }
@@ -362,7 +362,7 @@ import Fuse from 'fuse/fuse.esm.js'
         case "Enter":
           event.preventDefault()
           scrollElement("first")
-          parentEl.blur()
+          formEl.blur()
           break
       }
     }
