@@ -23,10 +23,11 @@ import Fuse from 'fuse/fuse.esm.js'
 // otherwise
 // <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6" defer></script>
 
+// TODO: Write an example w/ Hugo for testing & demoing. 
+
 (() => {
-  let fuse = null
-  
-  const options = {
+  // check https://fusejs.io/api/options.html
+  const fuseOpts = {
     keys: [
       { name: "name", weight: 7 },
       { name: "url", weight: 5 },
@@ -52,13 +53,20 @@ import Fuse from 'fuse/fuse.esm.js'
     findAllMatches: false
   }
 
-  /* TODO: Create an options object for liteSearch.
-   * As to move all settings to a single place at the top and make component easier to reuse.
-   */
+  const UIOpts = {
+    dataPath: "/index.json",
+    // dataPath: "/" + basePath + lang + "/index.json",  // for multilingual 
+    formSelector: "#search",
+    minInputLength: 0,
+    matchStrategy: "fuzzy",
+    maxResults: 10,
+    maxContextLength: 250,
+  }
 
+  let fuse = null
   fetchData()
     .then(data => {
-      fuse = new Fuse(data, options)  // eslint-disable-line
+      fuse = new Fuse(data, fuseOpts)
       window.addEventListener("load", initUI(), { passive: true })
     })
     .catch(console.error)
@@ -68,8 +76,7 @@ import Fuse from 'fuse/fuse.esm.js'
    */
   async function fetchData() {
     // eslint-disable-next-line
-    // const url = "/" + basePath + lang + "/index.json" // if site is multilingual 
-    const url = "/catalog/index.json"
+    const url = UIOpts.dataPath ? UIOpts.dataPath : "/index.json"
     const request = new Request(url, {method: 'GET', cache: 'default'})
 
     return fetch(request)
@@ -83,7 +90,9 @@ import Fuse from 'fuse/fuse.esm.js'
 
   /** Initialize the user interface */
   function initUI() {
-    const formEl = document.querySelector("#search")
+    const formSelector = UIOpts.formSelector ? UIOpts.formSelector : "#search"
+    const formEl = document.querySelector(formSelector)
+
     const labelEl = formEl.querySelector("label")
     const inputEl = formEl.querySelector("input")
     const modalEl = formEl.querySelector("ul")
@@ -124,13 +133,19 @@ import Fuse from 'fuse/fuse.esm.js'
        * Those contain the 'indices' (start, end), the key matched and it's value.
        */
 
-      // const query = `\'"${input}"`  // exact match
-      const query = input  // fuzzy match
+      const matchStrategy = UIOpts.matchStrategy ? UIOpts.matchStrategy : "fuzzy"
+      const queryTemplate = () => { 
+        switch(matchStrategy) {  // FIXME: Do I still need to break when I'm already returning?
+          case "fuzzy":
+            return input
 
-      if (input.length > 0)
-        return fuse.search(query)
-      else
-        return null
+          case "exact":
+            return `\'"${input}"`
+        }
+      }
+
+      const minInputLength = UIOpts.minInputLength ? UIOpts.minInputLength : 0
+      return (input.length > minInputLength) ? fuse.search(queryTemplate) : null
     }
 
     /** Build and inject a HTML bucket with the parsed results
@@ -140,6 +155,8 @@ import Fuse from 'fuse/fuse.esm.js'
     function parseHTML(input, results) {
       // TODO: Some procedures should be on parseResults instead like getMatch() and captureContext()
       
+      const maxResults = UIOpts.maxResults ? UIOpts.maxResults : 10
+
       let bucket = ""
 
       if (results === null) {
@@ -149,8 +166,12 @@ import Fuse from 'fuse/fuse.esm.js'
         bucket = `<li class="warning">No results found.</li>`
 
       } else if (results.length > 0) {
-        results.slice(0, 20).forEach((result, index) => {
+        results.slice(0, maxResults).forEach((result, index) => {
          
+          // TODO: Rewrite matches to use options.
+          
+          // 1. Get results key-values.
+
           /**
            * 'title' and 'content' are initially the page title and content
            * but they can be transformed and at end are the title and content
@@ -160,6 +181,10 @@ import Fuse from 'fuse/fuse.esm.js'
           let title = result.item.name
           let content = result.item.description
 
+          // TODO: Rewrite keys to use options.
+          // TODO: Make documentation the default
+
+          // 2.1. Get matches (optional)
           // const titleMatch = getMatch(result.matches, "title")
           // const contentMatch = getMatch(result.matches, "content")
           
@@ -179,6 +204,11 @@ import Fuse from 'fuse/fuse.esm.js'
             return match
           }
 
+          // 2. Use matches
+          // TODO: Move all the optional code that use matches to a new function
+          // 2.2. Capture context of matches (optional)
+          // TODO: Rewrite capturing context to use options.
+
           // capture the context of the 1st content match
           // if (contentMatch != null) {
           //   content = captureContext(contentMatch, 0)
@@ -195,8 +225,10 @@ import Fuse from 'fuse/fuse.esm.js'
           function captureContext(match, index) {
             let [first, last] = match.indices[index]  // capture the indexes of the first match
 
+            const maxContextLength = UIOpts.maxContextLength ? UIOpts.maxContextLength : 250
+
             const valueLength = match.value.length
-            const captureLength = 250 - last + first
+            const captureLength = maxContextLength - last + first
 
             first = first - captureLength / 2
             if (first < 0)
@@ -209,7 +241,8 @@ import Fuse from 'fuse/fuse.esm.js'
             return `...${match.value.slice(first, last)}...`
           }
 
-          /** Format matches w/ RegExp
+          // 2.3. Highlight matches
+          /** Highlight matches w/ RegExp
            *  @param {string} text
            *  @param {object} re - regular expression literal 
            *  @return {string}
@@ -233,9 +266,7 @@ import Fuse from 'fuse/fuse.esm.js'
           // title = title
           //   .replace(/(.*)\|(.*)/, '<span class="section">$1</span><span class="separator">|</span><span class="title">$2</span>')
 
-          /* build bucket */
-          // outer prototype = `<ul id="search-modal" role="listbox" hidden="true">`
-
+          // 3. Build bucket
           bucket += `
             <li role="option" aria-selected="false">
               <a
@@ -344,8 +375,6 @@ import Fuse from 'fuse/fuse.esm.js'
     function removeModalListeners() {
       modalEl.removeEventListener("keydown", modalKeyBinds)
     }
-
-    // TODO: Add search toggle global shortcut. (alt+f)
 
     /**
      * @param {object} event - keydown event
