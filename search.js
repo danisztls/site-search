@@ -139,15 +139,15 @@ import Fuse from 'fuse/fuse.esm.js'
        * Those contain the 'indices' (start, end), the key matched and it's value.
        */
 
-      const queryTemplate = () => { 
-        switch(matchStrategy) {  // FIXME: Do I still need to break when I'm already returning?
+      const queryTemplate = (() => { 
+        switch(matchStrategy) {
           case "fuzzy":
             return input
 
           case "exact":
             return `\'"${input}"`
         }
-      }
+      })()  // assign return of anonymous function to var
 
       const minInputLength = UIOpts.minInputLength ? UIOpts.minInputLength : 0
       return (input.length > minInputLength) ? fuse.search(queryTemplate) : null
