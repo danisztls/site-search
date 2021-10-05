@@ -22,12 +22,20 @@ import Fuse from 'fuse/fuse.esm.js'
 
 // otherwise
 // <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6" defer></script>
-
-// TODO: Write an example w/ Hugo for testing & demoing. 
-
+//
 (() => {
+  const UIOpts = {
+    dataPath: "/index.json",
+    // dataPath: "/" + basePath + lang + "/index.json",  // for multilingual 
+    formSelector: "#search",
+    minInputLength: 0,
+    matchStrategy: "fuzzy",
+    maxResults: 10,
+    maxContextLength: 250,
+  }
+
   // check https://fusejs.io/api/options.html
-  const fuseOpts = {
+  let fuseOpts = {
     keys: [
       { name: "name", weight: 7 },
       { name: "url", weight: 5 },
@@ -41,26 +49,26 @@ import Fuse from 'fuse/fuse.esm.js'
     ignoreFieldnorm: true,
     includeMatches: true,
     minMatchCharLength: 0,
-    
-    // exact matches
-    // threshold: 0,
-    // useExtendedSearch: true,
-    // findAllMatches: true
-
-    // fuzzy matches
-    threshold: 0.3,
-    useExtendedSearch: false,
-    findAllMatches: false
   }
 
-  const UIOpts = {
-    dataPath: "/index.json",
-    // dataPath: "/" + basePath + lang + "/index.json",  // for multilingual 
-    formSelector: "#search",
-    minInputLength: 0,
-    matchStrategy: "fuzzy",
-    maxResults: 10,
-    maxContextLength: 250,
+  const matchStrategy = UIOpts.matchStrategy ? UIOpts.matchStrategy : "fuzzy"
+
+  switch(matchStrategy) {
+    case ("exact"):
+      fuseOpts = Object.assign(fuseOpts, {
+        threshold: 0,
+        useExtendedSearch: true,
+        findAllMatches: true
+      })
+      break
+
+    case ("fuzzy"):
+      fuseOpts = Object.assign(fuseOpts, {
+        threshold: 0.3,
+        useExtendedSearch: false,
+        findAllMatches: false
+      })
+      break
   }
 
   let fuse = null
@@ -131,7 +139,6 @@ import Fuse from 'fuse/fuse.esm.js'
        * Those contain the 'indices' (start, end), the key matched and it's value.
        */
 
-      const matchStrategy = UIOpts.matchStrategy ? UIOpts.matchStrategy : "fuzzy"
       const queryTemplate = () => { 
         switch(matchStrategy) {  // FIXME: Do I still need to break when I'm already returning?
           case "fuzzy":
