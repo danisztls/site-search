@@ -92,8 +92,6 @@ import Fuse from 'fuse/fuse.esm.js'
   function initUI() {
     const formSelector = UIOpts.formSelector ? UIOpts.formSelector : "#search"
     const formEl = document.querySelector(formSelector)
-
-    const labelEl = formEl.querySelector("label")
     const inputEl = formEl.querySelector("input")
     const modalEl = formEl.querySelector("ul")
 
@@ -295,10 +293,8 @@ import Fuse from 'fuse/fuse.esm.js'
       inputEl.addEventListener("click",  showModal)
       inputEl.addEventListener("keydown", inputKeyBinds)
 
-      labelEl.addEventListener("click",  toggleUI)
-
       document.addEventListener("click", (event) => {
-        if (event.path[0] != inputEl && event.path[0] != labelEl ) {  // toggle UI if click outside input
+        if (event.path[0] != inputEl) {  // toggle UI if click outside input
           toggleUI()
         }
       }, {passive: true})
@@ -353,8 +349,7 @@ import Fuse from 'fuse/fuse.esm.js'
     /** Hide/show input and modal visibility only. */
     function toggleUI() {
       if (formEl.hidden == true) {
-        formEl.hidden = false
-        inputEl.hidden = false
+        formEl.hidden = false // TODO: Is it needed to hide formEl?
         inputEl.focus()
 
         if (inputEl.value != "")
@@ -362,7 +357,6 @@ import Fuse from 'fuse/fuse.esm.js'
         
       } else {
         formEl.hidden = true
-        inputEl.hidden = true
         closeModal()
       }
     }
