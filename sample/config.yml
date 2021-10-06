@@ -10,11 +10,10 @@ module:
         - source: dist
           target: assets/fuse
 
-  mounts:
-    - source: assets
-      target: assets
-    - source: ../search.js
-      target: assets/js/search.js
+    - path: github.com/danisztls/lite-search
+      mounts:
+        - source: search.js
+          target: assets/search.js
 
 outputs:
   home: ["html", "json"]
