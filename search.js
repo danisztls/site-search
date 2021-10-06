@@ -46,6 +46,7 @@ import Fuse from 'fuse/fuse.esm.js'
     maxContextLength: 250,
     includeMatches: false,
     showSectionOnTitle: true,
+    modalFullscreen: false,
   }
 
   // check: https://fusejs.io/api/options.html
@@ -328,7 +329,8 @@ import Fuse from 'fuse/fuse.esm.js'
       if (inputEl.value != "") {  // don't open modal before typing 
         modal.show()
         initModalListeners()
-        document.body.style.overflow = "hidden"  // prevent page scroll when modal is open // FIXME: This is only desired for fullscreen modal
+        if (opts.modalFullscreen)
+          document.body.style.overflow = "hidden"  // prevent page scroll when modal is open
       }
     }
 
