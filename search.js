@@ -45,6 +45,7 @@ import Fuse from 'fuse/fuse.esm.js'
     maxResults: 10,
     maxContextLength: 250,
     includeMatches: false,
+    showSectionOnTitle: true,
   }
 
   // check: https://fusejs.io/api/options.html
@@ -260,9 +261,10 @@ import Fuse from 'fuse/fuse.esm.js'
           result.title = hlMatch(result.title, re)
           result.description = hlMatch(result.description, re)
           
-          // add separator between section and title
-          // result.title = result.title
-          //   .replace(/(.*)\|(.*)/, '<span class="section">$1</span><span class="separator">|</span><span class="title">$2</span>')
+          // classify strings in title containing section 
+          if (opts.showSectionOnTitle)
+            result.title = result.title
+              .replace(/(.*)\|(.*)/, '<span class="section">$1</span><span class="separator">|</span><span class="title">$2</span>')
 
           // 3. Build bucket
           bucket += `
