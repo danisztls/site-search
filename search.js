@@ -303,7 +303,7 @@ import Fuse from 'fuse/fuse.esm.js'
       inputEl.addEventListener("keydown", inputKeyBinds)
 
       document.addEventListener("click", (event) => {
-        if (event.path[0] != inputEl) {  // toggle UI if click outside input
+        if (event.srcElement != inputEl) {  // toggle UI if click outside input
           toggleUI()
         }
       }, {passive: true})
@@ -311,7 +311,7 @@ import Fuse from 'fuse/fuse.esm.js'
       document.addEventListener("keydown", (event) => {
         if (event.key == "/") {  // global shortcut
           // do not trigger on inputs except search input
-          if (event.srcElement.nodeName != "INPUT" || event.path[0] == inputEl) {
+          if (event.srcElement.nodeName != "INPUT" || event.srcElement == inputEl) {
             event.preventDefault()
             toggleUI()
           }
@@ -407,7 +407,7 @@ import Fuse from 'fuse/fuse.esm.js'
      */
     function modalKeyBinds(event) {
       event.preventDefault()
-      const item = event.path[1]
+      const item = event.srcElement.parentElement
 
       switch (event.key) {
         case "Escape":
