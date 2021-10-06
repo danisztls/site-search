@@ -32,6 +32,11 @@ import Fuse from 'fuse/fuse.esm.js'
       { name: "content", weight: 1 },
     ],
 
+    // Optionally provide an alias when key names on JSON differ from what the script expects.
+    aliases: [
+      { title: "name" }
+    ],
+
     dataPath: "/index.json",
     // dataPath: "/" + basePath + lang + "/index.json",  // for multilingual 
     formSelector: "#search",
@@ -50,7 +55,7 @@ import Fuse from 'fuse/fuse.esm.js'
     ignoreFieldnorm: true,
     minMatchCharLength: 0,
     includeMatches: opts['includeMatches'],
-    keys: opts['searchKeys']
+    keys: opts['keys']
   }
 
   const matchStrategy = opts.matchStrategy ? opts.matchStrategy : "fuzzy"
@@ -166,11 +171,20 @@ import Fuse from 'fuse/fuse.esm.js'
         bucket = `<li class="warning">No results found.</li>`
 
       } else if (results.length > 0) {
-        results.slice(0, maxResults).forEach((result, index) => {
-          let title = result.item.title
-          let description = result.item.description
+        results.slice(0, maxResults).forEach((raw, index) => {
+          const result = {
+            title: raw.item.title ? raw.item.title : null,  // TODO: Isn't 'undefined' enough?
+            description: raw.item.description ? raw.item.description : null,
+            id: raw.item.id ? raw.item.id : null,
+            url: raw.item.url ? raw.item.url : null,
+            image: raw.item.image ? raw.item.image : null,
+          }
 
-          if (includeMatches)
+          for (const [name, alias] of Object.entries(opts.aliases)) {
+            result[name] = raw.item[alias]
+          }
+
+          if (opts.includeMatches)
             useMatches()
 
           /** Use matches indexes from Fuse.js and provide contextual results */
@@ -243,25 +257,25 @@ import Fuse from 'fuse/fuse.esm.js'
 
           const re = new RegExp(input, 'ig')  // i parameter to 'ignore' case sensitive
           
-          title = hlMatch(title, re)
-          description = hlMatch(description, re)
+          result.title = hlMatch(result.title, re)
+          result.description = hlMatch(result.description, re)
           
           // add separator between section and title
-          // title = title
+          // result.title = result.title
           //   .replace(/(.*)\|(.*)/, '<span class="section">$1</span><span class="separator">|</span><span class="title">$2</span>')
 
           // 3. Build bucket
           bucket += `
             <li role="option" aria-selected="false">
               <a
-                value="${result.item.id}"
-                href="${result.item.url}"
+                value="${result.id}"
+                href="${result.url}"
                 tabindex="${index}"
               >
-                <img src="${result.item.image}">
+                ${result.image ? `<img src="${result.image}">` : '' }
                 <div class="meta">
-                  <p>${title}</p>
-                  <p>${content}</p>
+                  <p>${result.title}</p>
+                  <p>${result.description}</p>
                 </div>
               </a>
             </li>
