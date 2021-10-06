@@ -8,8 +8,7 @@
 
       <!-- sections -->
       {{ range .Site.Menus.docs -}}
-        {{- $current := or ($currentPage.IsMenuCurrent "docs" .) ($currentPage.HasMenuCurrent "docs" .) -}}
-        {{- $current = or $current (eq $currentPage.Section .Identifier) -}}
+        {{- $current := ($currentPage.HasMenuCurrent "docs" .) -}}
 
         <li class="section" {{ if $current }}aria-current="section"{{ end }}>
           <a href="{{ .URL }}">{{ .Title }}</a>
@@ -18,10 +17,8 @@
             <ul id="section-{{ .Identifier }}">
 
               <!-- pages -->
-              <!-- FIXME: HasMenuCurrent is not needed for pages. -->
               {{ range .Children -}}
-                {{- $current := or ($currentPage.IsMenuCurrent "docs" .) ($currentPage.HasMenuCurrent "docs" .) -}}
-                {{- $current = or $current (eq $currentPage.Section .Identifier) -}}
+                {{- $current := ($currentPage.IsMenuCurrent "docs" .) }}
 
                 <li class="page" {{ if $current }}aria-current="page"{{ end }}>
                   <a href="{{ .URL }}">{{ .Title }}</a>
