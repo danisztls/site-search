@@ -30,12 +30,13 @@ function initSearch(opts) {
     keys: [
       { name: "title", weight: 7 },
       { name: "description", weight: 3 },
-      { name: "content", weight: 1 },
+      { name: "content", weight: 1 }
     ],
 
     // optionally provide an alias when key names on JSON differ from what the script expects.
     aliases: [
-      // { title: "name" }
+      // { input: "title", output: "description" },
+      // { input: "description", output: "title" }
     ],
 
     dataPath: "/index.json",
@@ -47,7 +48,7 @@ function initSearch(opts) {
     maxContextLength: 250,
     includeMatches: false,
     showSectionOnTitle: true,
-    modalFullscreen: false,
+    modalFullscreen: false
   }
 
   opts = Object.assign({}, defaults, opts)  // use defaults for missing opts
@@ -182,9 +183,8 @@ function initSearch(opts) {
             image: raw.item.image ? raw.item.image : null,
           }
 
-          // FIXME: Isn't working
-          for (const [name, alias] of Object.entries(opts.aliases)) {
-            result[name] = raw.item[alias]
+          for (const alias of opts.aliases) {
+            result[alias.output] = raw.item[alias.input]
           }
 
           if (opts.includeMatches)
