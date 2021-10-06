@@ -166,10 +166,10 @@ function initSearch(opts) {
         if (results.length > 0)
           results =  results.slice(0, opts.maxResults)
         else
-          results = "Type more to search."
+          results = "No results found."
 
       } else {
-        results = "No results found."
+        results = "Type more to search."
       }
 
       return results 
