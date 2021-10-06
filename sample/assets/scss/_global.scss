@@ -1,0 +1,71 @@
+$color: hsl(136, 100%, 21%); 
+$color-hover: hsl(136, 100%, 30%); 
+
+h1 {
+  font-size: 2em;
+}
+
+a {
+  text-decoration: none;
+  color: $color;
+
+  &:hover {
+    color: $color-hover;
+  }
+}
+
+header {
+  justify-content: center;
+  font-size: 2em;
+  font-weight: 900;
+  font-variant: small-caps;
+}
+
+footer {
+  font-size: 0.9em;
+  font-weight: 300;
+  text-align: center;
+}
+
+aside > nav {
+  ul {
+    list-style: none;
+    margin-left: -2em;
+    line-height: 2em;
+
+    .section { 
+      margin-bottom: 1em;
+
+      &> a {
+        font-size: 1.1em;
+      }
+    }
+
+    .page > a {
+      &:not(:hover) {
+        color: inherit;
+      }
+    }
+  }
+
+  li[aria-current="page"], li[aria-current="section"] { 
+    &> a {
+      font-weight: bold;
+    }
+  }
+}
+
+#center {
+  ul {
+    list-style: decimal;
+    font-size: 1.4rem;
+
+    h2 {
+      font-size: 1.4rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+    }
+  }
+}

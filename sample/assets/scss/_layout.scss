@@ -1,0 +1,39 @@
+main {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 15vw 60vw 15vw;
+  align-items: baseline;
+  column-gap: 5vw;
+  row-gap: 1.5em;
+  min-height: calc(100vh - 54px); // hide footer from 1st view on shorter pages
+  margin: 3rem 0 7rem 0;
+}
+
+aside {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  width: 10vw;
+  padding: 0 1rem 0 2rem;
+}
+
+#center {
+  margin: 0 0 0 0;
+  width: 60vw;
+  align-self: start;
+}
+
+article, section {
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  height: 60px;
+  padding: .5em 1em .5em 1em;
+}
+
+footer {
+  margin: 2em 0 0 0;
+}

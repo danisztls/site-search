@@ -1,0 +1,4 @@
+github.com/danisztls/lite-search v0.0.0-20211004041107-4bd40b875dd9 h1:abs0avxx8J0HtOD5p4Li2RBrFyS7ZTQZxTB7OSu+Zss=
+github.com/danisztls/lite-search v0.0.0-20211004041107-4bd40b875dd9/go.mod h1:n0972URA6YvxYb/Ky69iBIfcYfl/fmVsVXYGPR+5PDA=
+github.com/krisk/Fuse v6.4.6+incompatible h1:YsJpU2Ru5dREwYm+hJXYGTjZF4LGCxn7NRRtNt/HlRM=
+github.com/krisk/Fuse v6.4.6+incompatible/go.mod h1:3moWv8rDjwoKic9nwiPLgZjldkbdTAbtzJHCu/Vsj4A=

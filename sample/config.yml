@@ -1,0 +1,20 @@
+---
+baseURL: ""
+languageCode: 'en-us'
+title: 'Lite Search Demo'
+
+module:
+  imports:
+    - path: github.com/krisk/Fuse
+      mounts:
+        - source: dist
+          target: assets/fuse
+
+  mounts:
+    - source: assets
+      target: assets
+    - source: ../search.js
+      target: assets/js/search.js
+
+outputs:
+  home: ["html", "json"]

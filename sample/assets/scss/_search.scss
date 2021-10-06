@@ -1,0 +1,100 @@
+#search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: .4em;
+  border: solid 1px #ced4da; 
+  border-radius: 5px;
+  width: fit-content;
+  
+  &[hidden] {
+    background: unset;
+  }
+
+  &:focus-within {
+    box-shadow: 0 0 0 0.15rem #4e4e4e4e;
+  }
+
+  label {
+    display: flex;
+    align-items: stretch;
+    fill: #4e4e4e;
+
+    svg {
+      width: 1rem;
+    }
+  }
+
+  input {
+    font-size: 1rem;
+    width: 100px;
+    border: unset; 
+    margin-left: .5em;
+
+    &:focus-visible {
+      outline: unset;
+    }
+  }
+
+  // results
+  ul {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    background: blue;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    background: white;
+    box-shadow: 0 0 10px hsla(0, 0%, 0%, .2);
+    visibility: hidden;
+    z-index: 1;
+    list-style: none;
+    padding: .5em;
+  }
+
+  // result
+  li {
+  }
+
+  // link
+  a {
+    color: unset;
+  }
+
+  // title & description
+  .meta p {
+    font-size: 1em;
+    line-height: normal;
+    // text-transform: none;
+    margin: 0;
+
+    // title
+    &:first-child {
+      font-weight: 500;
+      margin: 0 0 .1em 0;
+
+      .section {
+        color: #24608f; 
+      }
+
+      .separator {
+        color: #76828f;
+      }
+
+      .title {
+      }
+    }
+   
+    // description
+    &:last-child {
+      font-size: .8em;
+      color: hsl(0, 0%, 50%);
+    }
+
+    // highlighting
+    mark {
+      background-color: hsl(135, 84%, 84%);
+    }
+  }
+}

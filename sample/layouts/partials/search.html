@@ -1,0 +1,33 @@
+<form
+  id="search"
+  role="search"
+  aria-haspopup="listbox"
+  aria-labelledby="search-label"
+>
+  <!-- TODO: Do I need to hide form? I think I do to the results modal. -->
+  <label id="search-label">
+    <!--
+    Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com
+    License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+    -->
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 100 100"
+    >
+      <path d="M 98.640025,86.456401 79.165945,66.985646 c -0.878971,-0.87882 -2.070464,-1.367054 -3.320556,-1.367054 H 72.661563 C 78.052582,58.724734 81.255941,50.053706 81.255941,40.621033 81.255941,18.181818 63.071019,0 40.627971,0 18.184924,0 0,18.181818 0,40.621033 c 0,22.439215 18.184924,40.621033 40.627971,40.621033 9.434284,0 18.106793,-3.202812 25.001827,-8.592911 v 3.183283 c 0,1.249878 0.488317,2.441168 1.367288,3.319989 l 19.474081,19.470754 c 1.836071,1.835759 4.805039,1.835759 6.621578,0 l 5.527748,-5.526804 c 1.836077,-1.835758 1.836077,-4.804218 0.01953,-6.639976 z M 40.627971,65.618592 c -13.809604,0 -25.001828,-11.170784 -25.001828,-24.997559 0,-13.807245 11.172691,-24.997559 25.001828,-24.997559 13.809604,0 25.001827,11.170784 25.001827,24.997559 0,13.807245 -11.172691,24.997559 -25.001827,24.997559 z">
+    </svg>
+  </label>
+
+  <input
+    id="search-input"
+    type="search"
+    list="search-results"
+    placeholder="Search..."
+    aria-label="Search"
+    aria-expanded="false"
+    autocomplete="off"
+    spellcheck="false"
+  />
+
+  <ul id="search-modal" role="listbox" hidden></ul>
+</form>

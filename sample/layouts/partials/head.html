@@ -1,0 +1,12 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- SEO -->
+  <title>{{ .Site.Title }} | {{ .Title }}</title>
+  <meta name="description" content="{{ .Site.Params.description }}" />
+  <link rel="canonical" href="{{ .Permalink }}" />
+
+  <!-- Stylesheet -->
+  {{ partial "head/stylesheet.html" . }}
+</head>

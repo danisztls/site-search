@@ -1,0 +1,7 @@
+{
+  "id": "{{ .File.UniqueID }}",
+  "url": "{{ .RelPermalink }}",
+  "title": "{{ printf "%s | %s" .Parent.Title .Title }}",
+  "description": "{{ .Params.description }}",
+  "content": {{ .Content | plainify | jsonify }}
+}

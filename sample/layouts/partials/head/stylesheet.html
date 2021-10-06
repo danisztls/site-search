@@ -1,0 +1,4 @@
+{{ $options := (dict "targetPath" "main.css" "enableSourceMap" true) }}
+{{ $css := resources.Get "scss/main.scss" | toCSS $options }}
+
+<link rel="stylesheet" href="{{ $css.Permalink }}"/>

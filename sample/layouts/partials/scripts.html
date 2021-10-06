@@ -1,0 +1,5 @@
+{{ $search := resources.Get "js/search.js" }}
+{{ $js := slice $search | resources.Concat "js/main.js" }}
+{{ $js = $js | js.Build }}
+
+<script src="{{ $js.Permalink }}" async></script>

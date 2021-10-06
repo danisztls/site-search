@@ -1,0 +1,20 @@
+{{ define "main" }}
+  <main id="list">
+    {{ partial "sidebar.html" . }}
+
+    <div id="center">
+      <section id="meta">
+        <h1>{{ .Title }}</h1>
+      </section>
+
+      <ul>
+        {{ range .Pages }}
+          <li>
+            <a href="{{ .RelPermalink }}"><h2>{{ .Title }}</h2></a>
+            <p>{{ .Description }}</p>
+          </li>
+        {{end}}
+      </ul>
+    </div>
+  </main>
+{{ end }}

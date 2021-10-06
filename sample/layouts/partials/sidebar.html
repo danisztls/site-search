@@ -1,0 +1,36 @@
+<aside id="side">
+  {{ partial "search.html" . }}
+
+  <nav id="main-menu" aria-label="Main Menu">
+    <ul>
+      <!-- capture current page -->
+      {{ $currentPage := . -}}
+
+      <!-- sections -->
+      {{ range .Site.Menus.docs -}}
+        {{- $current := or ($currentPage.IsMenuCurrent "docs" .) ($currentPage.HasMenuCurrent "docs" .) -}}
+        {{- $current = or $current (eq $currentPage.Section .Identifier) -}}
+
+        <li class="section" {{ if $current }}aria-current="section"{{ end }}>
+          <a href="{{ .URL }}">{{ .Title }}</a>
+
+          {{ if .HasChildren -}}
+            <ul id="section-{{ .Identifier }}">
+
+              <!-- pages -->
+              <!-- FIXME: HasMenuCurrent is not needed for pages. -->
+              {{ range .Children -}}
+                {{- $current := or ($currentPage.IsMenuCurrent "docs" .) ($currentPage.HasMenuCurrent "docs" .) -}}
+                {{- $current = or $current (eq $currentPage.Section .Identifier) -}}
+
+                <li class="page" {{ if $current }}aria-current="page"{{ end }}>
+                  <a href="{{ .URL }}">{{ .Title }}</a>
+                </li>
+              {{ end -}}
+            </ul>
+          {{ end -}}
+        </li>
+      {{ end -}}
+    </ul>
+  </nav>
+</aside>

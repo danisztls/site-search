@@ -1,0 +1,6 @@
+[
+{{- range $index, $e := .Site.RegularPages -}}
+{{ if $index }}, {{ end }}
+{{ .Render "single" }}
+{{- end -}}
+]
