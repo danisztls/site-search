@@ -18,11 +18,13 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  */
 
+// TODO: Provide distrib script w/ Fuse.js bundled.
 import Fuse from 'fuse/fuse.esm.js'
-
-// otherwise
 // <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6" defer></script>
-//
+
+// TODO: Use window.searchOpts and use values bellow as fallback/example.
+// Will free a lot of ternary operators that are used to assign default values.
+
 (() => {
   const opts = {
     // Comment keys that aren't going to be used.
@@ -75,7 +77,7 @@ import Fuse from 'fuse/fuse.esm.js'
       break
   }
 
-  let fuse = null  // TODO: Create function initFuse()
+  let fuse = null
   fetchData()
     .then(data => {
       fuse = new Fuse(data, opts.fuse)
@@ -98,6 +100,10 @@ import Fuse from 'fuse/fuse.esm.js'
          }
          return response.json()
       })
+  }
+
+  // TODO: Move related procedures here.
+  function initFuse() {
   }
 
   /** Initialize the user interface */
@@ -175,7 +181,7 @@ import Fuse from 'fuse/fuse.esm.js'
       } else if (results.length > 0) {
         results.slice(0, maxResults).forEach((raw, index) => {
           const result = {
-            title: raw.item.title ? raw.item.title : null,  // TODO: Isn't 'undefined' enough?
+            title: raw.item.title ? raw.item.title : null,
             description: raw.item.description ? raw.item.description : null,
             id: raw.item.id ? raw.item.id : null,
             url: raw.item.url ? raw.item.url : null,
@@ -271,7 +277,7 @@ import Fuse from 'fuse/fuse.esm.js'
           bucket += `
             <li role="option" aria-selected="false">
               <a
-                value="${result.id}"
+                ${result.id ? `value="${result.id}"` : ''}
                 href="${result.url}"
                 tabindex="${index}"
               >
@@ -352,6 +358,7 @@ import Fuse from 'fuse/fuse.esm.js'
 
     /** Hide/show input and modal visibility only. */
     function toggleUI() {
+      // TODO: should use formEl instead?
       if (inputEl.ariaExpanded) {
         closeModal()
         inputEl.ariaExpanded = false
