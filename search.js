@@ -221,7 +221,7 @@ function initSearch(opts) {
              *  @return {object|null} - match or a no match signal 
              */
             function getMatch(items, key) {
-              let match = null
+              let match
               items.some((item) => {
                 if (item.key === key ) {
                   match = item
@@ -446,7 +446,7 @@ function initSearch(opts) {
      *  @param {object} [item] - DOM element 
      */
     function scrollElement(direction, item) {
-      let target = null
+      let target
 
       switch (direction) {
         case "first":
