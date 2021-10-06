@@ -24,7 +24,14 @@ import Fuse from 'fuse/fuse.esm.js'
 // <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6" defer></script>
 //
 (() => {
-  const UIOpts = {
+  const opts = {
+    // Comment keys that aren't going to be used.
+    keys: [
+      { name: "title", weight: 7 },
+      { name: "description", weight: 3 },
+      { name: "content", weight: 1 },
+    ],
+
     dataPath: "/index.json",
     // dataPath: "/" + basePath + lang + "/index.json",  // for multilingual 
     formSelector: "#search",
@@ -34,47 +41,36 @@ import Fuse from 'fuse/fuse.esm.js'
     maxContextLength: 250,
   }
 
-  // check https://fusejs.io/api/options.html
-  let fuseOpts = {
-    keys: [
-      { name: "name", weight: 7 },
-      { name: "url", weight: 5 },
-      { name: "categories", weight: 3 },
-      { name: "tags", weight: 3 },
-      { name: "description", weight: 1 }
-    ],
+  // check: https://fusejs.io/api/options.html
+  opts.fuse = {
     location: 0,
     distance: 0,
     ignoreLocation: true,
     ignoreFieldnorm: true,
     includeMatches: true,
     minMatchCharLength: 0,
+    keys: opts['keys']
   }
 
-  const matchStrategy = UIOpts.matchStrategy ? UIOpts.matchStrategy : "fuzzy"
-
+  const matchStrategy = opts.matchStrategy ? opts.matchStrategy : "fuzzy"
   switch(matchStrategy) {
-    case ("exact"):
-      fuseOpts = Object.assign(fuseOpts, {
-        threshold: 0,
-        useExtendedSearch: true,
-        findAllMatches: true
-      })
+    case ("fuzzy"):
+      opts.fuse.threshold = 0.3
+      opts.fuse.useExtendedSearch = false
+      opts.fuse.findAllMatches = false
       break
 
-    case ("fuzzy"):
-      fuseOpts = Object.assign(fuseOpts, {
-        threshold: 0.3,
-        useExtendedSearch: false,
-        findAllMatches: false
-      })
+    case ("exact"):
+      opts.fuse.threshold = 0
+      opts.fuse.useExtendedSearch = true
+      opts.fuse.findAllMatches = true
       break
   }
 
-  let fuse = null
+  let fuse = null  // TODO: Create function initFuse()
   fetchData()
     .then(data => {
-      fuse = new Fuse(data, fuseOpts)
+      fuse = new Fuse(data, opts.fuse)
       window.addEventListener("load", initUI(), { passive: true })
     })
     .catch(console.error)
@@ -84,7 +80,7 @@ import Fuse from 'fuse/fuse.esm.js'
    */
   async function fetchData() {
     // eslint-disable-next-line
-    const url = UIOpts.dataPath ? UIOpts.dataPath : "/index.json"
+    const url = opts.dataPath ? opts.dataPath : "/index.json"
     const request = new Request(url, {method: 'GET', cache: 'default'})
 
     return fetch(request)
@@ -98,7 +94,7 @@ import Fuse from 'fuse/fuse.esm.js'
 
   /** Initialize the user interface */
   function initUI() {
-    const formSelector = UIOpts.formSelector ? UIOpts.formSelector : "#search"
+    const formSelector = opts.formSelector ? opts.formSelector : "#search"
     const formEl = document.querySelector(formSelector)
     const inputEl = formEl.querySelector("input")
     const modalEl = formEl.querySelector("ul")
@@ -149,7 +145,7 @@ import Fuse from 'fuse/fuse.esm.js'
         }
       })()  // assign return of anonymous function to var
 
-      const minInputLength = UIOpts.minInputLength ? UIOpts.minInputLength : 0
+      const minInputLength = opts.minInputLength ? opts.minInputLength : 0
       return (input.length > minInputLength) ? fuse.search(queryTemplate) : null
     }
 
@@ -159,8 +155,7 @@ import Fuse from 'fuse/fuse.esm.js'
      */
     function parseHTML(input, results) {
       // TODO: Some procedures should be on parseResults instead like getMatch() and captureContext()
-      
-      const maxResults = UIOpts.maxResults ? UIOpts.maxResults : 10
+      const maxResults = opts.maxResults ? opts.maxResults : 10
 
       let bucket = ""
 
@@ -230,7 +225,7 @@ import Fuse from 'fuse/fuse.esm.js'
           function captureContext(match, index) {
             let [first, last] = match.indices[index]  // capture the indexes of the first match
 
-            const maxContextLength = UIOpts.maxContextLength ? UIOpts.maxContextLength : 250
+            const maxContextLength = opts.maxContextLength ? opts.maxContextLength : 250
 
             const valueLength = match.value.length
             const captureLength = maxContextLength - last + first
@@ -333,7 +328,7 @@ import Fuse from 'fuse/fuse.esm.js'
       if (inputEl.value != "") {  // don't open modal before typing 
         modal.show()
         initModalListeners()
-        document.body.style.overflow = "hidden"  // prevent page scroll when modal is open
+        document.body.style.overflow = "hidden"  // prevent page scroll when modal is open // FIXME: This is only desired for fullscreen modal
       }
     }
 
