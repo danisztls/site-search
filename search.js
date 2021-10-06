@@ -329,8 +329,6 @@ function initSearch(opts) {
         showModal()
     }
 
-    // TODO: Extend 'Modal' class to reduce spaghetti code.
-
     function showModal() {
       if (inputEl.value != "") {  // don't open modal before typing 
         modal.show()
