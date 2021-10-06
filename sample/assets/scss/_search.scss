@@ -6,6 +6,7 @@
   border: solid 1px #ced4da; 
   border-radius: 5px;
   width: fit-content;
+  width: -moz-fit-content;
   
   &[hidden] {
     background: unset;
@@ -55,6 +56,11 @@
 
   // result
   li {
+    margin-bottom: .7em;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   // link
