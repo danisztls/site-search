@@ -358,17 +358,16 @@ import Fuse from 'fuse/fuse.esm.js'
 
     /** Hide/show input and modal visibility only. */
     function toggleUI() {
-      // TODO: should use formEl instead?
-      if (inputEl.ariaExpanded) {
+      if (formEl.ariaExpanded) {
         closeModal()
-        inputEl.ariaExpanded = false
+        formEl.ariaExpanded = false
 
       } else {
         inputEl.focus()
 
         if (inputEl.value != "") {
           showModal()
-          inputEl.ariaExpanded = true
+          formEl.ariaExpanded = true
         }
       }
     }
