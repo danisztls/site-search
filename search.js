@@ -27,8 +27,8 @@ function initSearch(opts) {
   const defaults = {
     // comment keys that aren't going to be used.
     keys: [
-      { name: "title", weight: 7 },
-      { name: "description", weight: 3 },
+      { name: "title", weight: 3 },
+      { name: "description", weight: 2 },
       { name: "content", weight: 1 }
     ],
 
