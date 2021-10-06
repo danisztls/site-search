@@ -303,9 +303,8 @@ function initSearch(opts) {
       inputEl.addEventListener("keydown", inputKeyBinds)
 
       document.addEventListener("click", (event) => {
-        if (event.srcElement != inputEl) {  // toggle UI if click outside input
+        if (event.srcElement != inputEl)  // toggle UI if click outside input
           toggleUI()
-        }
       }, {passive: true})
 
       document.addEventListener("keydown", (event) => {
@@ -446,11 +445,10 @@ function initSearch(opts) {
           break
 
         case "up":
-          if (item.previousElementSibling) {
+          if (item.previousElementSibling)
             target = item.previousElementSibling
-          } else {
+          else
             scrollElement("input", item)
-          }
           break
 
         case "down":
