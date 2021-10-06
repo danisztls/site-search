@@ -1,5 +1,5 @@
 # Search
-A instant search UI component for the Web aimed to be light, agnostic and effective.
+An instant search UI component for the Web aimed to be light, agnostic and effective.
 
 ## Features
 - instant search
@@ -18,6 +18,11 @@ A instant search UI component for the Web aimed to be light, agnostic and effect
 ## Caveats
 - It does not support context-wise search at headings level as [DocSearch](https://docsearch.algolia.com/) does.
 - Fuse.js is kind of dead.
+
+## Demo
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b569fb24-1b63-41d4-bec1-df533ecb262a/deploy-status)](https://app.netlify.com/sites/condescending-babbage-f99854/deploys)
+
+Check a [demo](https://condescending-babbage-f99854.netlify.app/).
 
 ## Usage
 ### Options
