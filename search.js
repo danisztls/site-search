@@ -471,7 +471,7 @@ function initSearch(opts) {
           item.ariaSelected = false
       }
      
-      if (target != null) {
+      if (target.querySelector("a")) {
         target.querySelector("a").focus()
         target.ariaSelected = true
         
