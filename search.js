@@ -22,21 +22,20 @@
 import Fuse from 'fuse/fuse.esm.js'
 // <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6" defer></script>
 
-// TODO: Use window.searchOpts and use values bellow as fallback/example.
-// Will free a lot of ternary operators that are used to assign default values.
+initSearch(window.searchOpts)
 
-(() => {
-  const opts = {
-    // Comment keys that aren't going to be used.
+function initSearch(opts) {
+  const defaults = {
+    // comment keys that aren't going to be used.
     keys: [
       { name: "title", weight: 7 },
       { name: "description", weight: 3 },
       { name: "content", weight: 1 },
     ],
 
-    // Optionally provide an alias when key names on JSON differ from what the script expects.
+    // optionally provide an alias when key names on JSON differ from what the script expects.
     aliases: [
-      { title: "name" }
+      // { title: "name" }
     ],
 
     dataPath: "/index.json",
@@ -51,6 +50,8 @@ import Fuse from 'fuse/fuse.esm.js'
     modalFullscreen: false,
   }
 
+  opts = Object.assign({}, defaults, opts)  // use defaults for missing opts
+
   // check: https://fusejs.io/api/options.html
   opts.fuse = {
     location: 0,
@@ -62,8 +63,7 @@ import Fuse from 'fuse/fuse.esm.js'
     keys: opts['keys']
   }
 
-  const matchStrategy = opts.matchStrategy ? opts.matchStrategy : "fuzzy"
-  switch(matchStrategy) {
+  switch(opts.matchStrategy) {
     case ("fuzzy"):
       opts.fuse.threshold = 0.3
       opts.fuse.useExtendedSearch = false
@@ -89,9 +89,7 @@ import Fuse from 'fuse/fuse.esm.js'
    *  @return {Object} - data for Fuse()
    */
   async function fetchData() {
-    // eslint-disable-next-line
-    const url = opts.dataPath ? opts.dataPath : "/index.json"
-    const request = new Request(url, {method: 'GET', cache: 'default'})
+    const request = new Request(opts.dataPath, {method: 'GET', cache: 'default'})
 
     return fetch(request)
       .then(response => {
@@ -108,8 +106,7 @@ import Fuse from 'fuse/fuse.esm.js'
 
   /** Initialize the user interface */
   function initUI() {
-    const formSelector = opts.formSelector ? opts.formSelector : "#search"
-    const formEl = document.querySelector(formSelector)
+    const formEl = document.querySelector(opts.formSelector)
     const inputEl = formEl.querySelector("input")
     const modalEl = formEl.querySelector("ul")
 
@@ -150,7 +147,7 @@ import Fuse from 'fuse/fuse.esm.js'
        */
 
       const queryTemplate = (() => { 
-        switch(matchStrategy) {
+        switch(opts.matchStrategy) {
           case "fuzzy":
             return input
 
@@ -159,8 +156,7 @@ import Fuse from 'fuse/fuse.esm.js'
         }
       })()  // assign return of anonymous function to var
 
-      const minInputLength = opts.minInputLength ? opts.minInputLength : 0
-      return (input.length > minInputLength) ? fuse.search(queryTemplate) : null
+      return (input.length > opts.minInputLength) ? fuse.search(queryTemplate) : null
     }
 
     /** Build and inject a HTML bucket with the parsed results
@@ -168,8 +164,6 @@ import Fuse from 'fuse/fuse.esm.js'
      *  @param {array|null} results or null signal
      */
     function parseHTML(input, results) {
-      const maxResults = opts.maxResults ? opts.maxResults : 10
-
       let bucket = ""
 
       if (results === null) {
@@ -179,7 +173,7 @@ import Fuse from 'fuse/fuse.esm.js'
         bucket = `<li class="warning">No results found.</li>`
 
       } else if (results.length > 0) {
-        results.slice(0, maxResults).forEach((raw, index) => {
+        results.slice(0, opts.maxResults).forEach((raw, index) => {
           const result = {
             title: raw.item.title ? raw.item.title : null,
             description: raw.item.description ? raw.item.description : null,
@@ -188,6 +182,7 @@ import Fuse from 'fuse/fuse.esm.js'
             image: raw.item.image ? raw.item.image : null,
           }
 
+          // FIXME: Isn't working
           for (const [name, alias] of Object.entries(opts.aliases)) {
             result[name] = raw.item[alias]
           }
@@ -231,9 +226,8 @@ import Fuse from 'fuse/fuse.esm.js'
              */
             function captureContext(match, index) {
               let [first, last] = match.indices[index]  // capture the indexes of the first match
-              const maxContextLength = opts.maxContextLength ? opts.maxContextLength : 250
               const valueLength = match.value.length
-              const captureLength = maxContextLength - last + first
+              const captureLength = opts.maxContextLength - last + first
 
               first = first - captureLength / 2
               if (first < 0)
@@ -474,4 +468,4 @@ import Fuse from 'fuse/fuse.esm.js'
       }
     }
   }
-})()
+}
