@@ -1,0 +1,4 @@
+[build]
+  base = "sample"
+  publish = "public"
+  command = "hugo"
