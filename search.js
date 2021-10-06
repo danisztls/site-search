@@ -18,7 +18,6 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  */
 
-// TODO: Provide distrib script w/ Fuse.js bundled.
 import Fuse from 'fuse/fuse.esm.js'
 // <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6" defer></script>
 
@@ -167,6 +166,7 @@ function initSearch(opts) {
     function parseHTML(input, results) {
       let bucket = ""
 
+      // TODO: Move this to parseResults()
       if (results === null) {
         bucket = `<li class="warning">Type more to search.</li>`
 
@@ -191,7 +191,7 @@ function initSearch(opts) {
             useMatches()
 
           /** Use matches indexes from Fuse.js and provide contextual results */
-          // TODO: Refactor this and maybe move it to parse results.
+          // TODO: Refactor this
           function useMatches() {
             // const titleMatch = getMatch(result.matches, "title")
             // const contentMatch = getMatch(result.matches, "content")
@@ -267,7 +267,7 @@ function initSearch(opts) {
             result.title = result.title
               .replace(/(.*)\|(.*)/, '<span class="section">$1</span><span class="separator">|</span><span class="title">$2</span>')
 
-          // 3. Build bucket
+          // build bucket
           bucket += `
             <li role="option" aria-selected="false">
               <a
