@@ -52,60 +52,62 @@ function initSearch(opts) {
 
   opts = Object.assign({}, defaults, opts)  // use defaults for missing opts
 
-  // check: https://fusejs.io/api/options.html
-  opts.fuse = {
-    location: 0,
-    distance: 0,
-    ignoreLocation: true,
-    ignoreFieldnorm: true,
-    minMatchCharLength: 0,
-    includeMatches: opts['includeMatches'],
-    keys: opts['keys']
-  }
+  initFuse()
 
-  switch(opts.matchStrategy) {
-    case ("fuzzy"):
-      opts.fuse.threshold = 0.3
-      opts.fuse.useExtendedSearch = false
-      opts.fuse.findAllMatches = false
-      break
-
-    case ("exact"):
-      opts.fuse.threshold = 0
-      opts.fuse.useExtendedSearch = true
-      opts.fuse.findAllMatches = true
-      break
-  }
-
-  let fuse = null
-  fetchData()
-    .then(data => {
-      fuse = new Fuse(data, opts.fuse)
-      window.addEventListener("load", initUI(), { passive: true })
-    })
-    .catch(console.error)
-
-  /** Fetch data from a JSON endpoint
-   *  @return {Object} - data for Fuse()
+  /** Initialize the Fuse.js instance
+   *  check: https://fusejs.io/api/options.html
    */
-  async function fetchData() {
-    const request = new Request(opts.dataPath, {method: 'GET', cache: 'default'})
-
-    return fetch(request)
-      .then(response => {
-         if (!response.ok) {
-           throw new Error("HTTP error " + response.status)
-         }
-         return response.json()
-      })
-  }
-
-  // TODO: Move related procedures here.
   function initFuse() {
+    opts.fuse = {
+      location: 0,
+      distance: 0,
+      ignoreLocation: true,
+      ignoreFieldnorm: true,
+      minMatchCharLength: 0,
+      includeMatches: opts['includeMatches'],
+      keys: opts['keys']
+    }
+
+    switch(opts.matchStrategy) {
+      case ("fuzzy"):
+        opts.fuse.threshold = 0.3
+        opts.fuse.useExtendedSearch = false
+        opts.fuse.findAllMatches = false
+        break
+
+      case ("exact"):
+        opts.fuse.threshold = 0
+        opts.fuse.useExtendedSearch = true
+        opts.fuse.findAllMatches = true
+        break
+    }
+
+    fetchData()
+      .then(data => {
+        window.addEventListener("load", initUI(new Fuse(data, opts.fuse)), { passive: true })
+      })
+      .catch(console.error)
+
+    /** Fetch data from a JSON endpoint
+     *  @return {Object} - data for Fuse()
+     */
+    async function fetchData() {
+      const request = new Request(opts.dataPath, {method: 'GET', cache: 'default'})
+
+      return fetch(request)
+        .then(response => {
+           if (!response.ok) {
+             throw new Error("HTTP error " + response.status)
+           }
+           return response.json()
+        })
+    }
   }
 
-  /** Initialize the user interface */
-  function initUI() {
+  /** Initialize the user interface
+   *  @param {object} fuse -  Fuse.js instance
+   */
+  function initUI(fuse) {
     const formEl = document.querySelector(opts.formSelector)
     const inputEl = formEl.querySelector("input")
     const modalEl = formEl.querySelector("ul")
