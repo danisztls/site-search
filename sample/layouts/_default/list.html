@@ -10,8 +10,10 @@
       <ul>
         {{ range .Pages }}
           <li>
-            <a href="{{ .RelPermalink }}"><h2>{{ .Title }}</h2></a>
-            <p>{{ .Description }}</p>
+            <div>
+              <a href="{{ .RelPermalink }}"><h2>{{ .Title }}</h2></a>
+              <p>{{ .Description }}</p>
+            </div>
           </li>
         {{end}}
       </ul>
