@@ -1,14 +1,14 @@
 /**
- * @name     liteSearch
- * @desc     Light and agnostic search UI powered by Fuse.js
+ * @name     lite-search
+ * @desc     A standalone instant search component.
  * @author   Daniel Souza <me@posix.dev.br>
- * @version  3.1.0
+ * @version  3.2.0
  * @license  MIT
- * @sourceType module
  */
 
-// Fix for preserving doc header as Fuse.js does not follow JSDOC
-// Issue: https://github.com/krisk/Fuse/issues/570
+/* Fix for preserving doc header as Fuse.js does not follow JSDOC
+ * Issue: https://github.com/krisk/Fuse/issues/570
+ */
 
 /*!
  * Fuse.js v6.4.6 - Lightweight fuzzy-search (http://fusejs.io)
