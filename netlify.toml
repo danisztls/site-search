@@ -2,3 +2,4 @@
   base = "sample"
   publish = "public"
   command = "hugo"
+  ignore = "/bin/false"
