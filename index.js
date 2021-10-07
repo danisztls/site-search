@@ -4,6 +4,7 @@
  * @author   Daniel Souza <me@posix.dev.br>
  * @version  3.1.0
  * @license  MIT
+ * @sourceType module
  */
 
 // Fix for preserving doc header as Fuse.js does not follow JSDOC
@@ -18,10 +19,8 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  */
 
-import Fuse from 'fuse/fuse.esm.js'
-// <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6" defer></script>
-
-initSearch(window.searchOpts)
+import Fuse from 'fuse.js/dist/fuse.esm.js'
+export default initSearch
 
 function initSearch(opts) {
   const defaults = {
