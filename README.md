@@ -3,8 +3,6 @@ An instant search UI component for the Web aimed to be light, agnostic and effec
 
 [![lite-search](https://github.com/danisztls/lite-search/actions/workflows/release-package.yml/badge.svg)](https://github.com/danisztls/lite-search/actions/workflows/release-package.yml)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b569fb24-1b63-41d4-bec1-df533ecb262a/deploy-status)](https://app.netlify.com/sites/condescending-babbage-f99854/deploys)
-
 ## Features
 - instant search
 - highlight search term matches
