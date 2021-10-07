@@ -2,5 +2,9 @@ github.com/danisztls/lite-search v0.0.0-20211004041107-4bd40b875dd9 h1:abs0avxx8
 github.com/danisztls/lite-search v0.0.0-20211004041107-4bd40b875dd9/go.mod h1:n0972URA6YvxYb/Ky69iBIfcYfl/fmVsVXYGPR+5PDA=
 github.com/danisztls/lite-search v0.0.0-20211006200815-1e31e74ca8d3 h1:+4JXxKFTXvxdOdl9XL93jtJ4SnvDfZMGmWsZAQmoGYU=
 github.com/danisztls/lite-search v0.0.0-20211006200815-1e31e74ca8d3/go.mod h1:n0972URA6YvxYb/Ky69iBIfcYfl/fmVsVXYGPR+5PDA=
+github.com/danisztls/lite-search v3.1.1-0.20211007184606-7dfe3ca442e7+incompatible h1:iS2LLoElmqm/2CpWWq8bjkj9x4PzVeQXBgKLCPM+eh8=
+github.com/danisztls/lite-search v3.1.1-0.20211007184606-7dfe3ca442e7+incompatible/go.mod h1:n0972URA6YvxYb/Ky69iBIfcYfl/fmVsVXYGPR+5PDA=
+github.com/danisztls/lite-search v3.2.0+incompatible h1:IJI7+OR4RWxp7IMh0BZ50IoEKTP27HQJjtl6IV+L4ew=
+github.com/danisztls/lite-search v3.2.0+incompatible/go.mod h1:n0972URA6YvxYb/Ky69iBIfcYfl/fmVsVXYGPR+5PDA=
 github.com/krisk/Fuse v6.4.6+incompatible h1:YsJpU2Ru5dREwYm+hJXYGTjZF4LGCxn7NRRtNt/HlRM=
 github.com/krisk/Fuse v6.4.6+incompatible/go.mod h1:3moWv8rDjwoKic9nwiPLgZjldkbdTAbtzJHCu/Vsj4A=
