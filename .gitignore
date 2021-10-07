@@ -1,5 +1,9 @@
-sample/resources
+# Node
 node_modules
 
-# Local Netlify folder
+# Hugo
+sample/resources
+sample/assets/jsconfig.json
+
+# Netlify
 .netlify
