@@ -7,3 +7,6 @@ module:
           target: assets/fuse.js/dist/fuse.esm.js
 
     - path: github.com/danisztls/lite-search
+      mounts:
+        - source: index.js
+          target: assets/lite-search/index.js
