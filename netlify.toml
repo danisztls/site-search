@@ -1,5 +1,5 @@
 [build]
   base = "sample"
   publish = "public"
-  command = "hugo --env production"
+  command = "hugo --environment production"
   ignore = "/bin/false"
