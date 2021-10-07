@@ -3,7 +3,8 @@
   "baseUrl": ".",
   "paths": {
    "*": [
-    "../../../../../../../.cache/hugo/modules/filecache/modules/pkg/mod/github.com/krisk/!fuse@v6.4.6+incompatible/dist/*"
+    "../../*",
+    "../../../../../../../.cache/hugo/modules/filecache/modules/pkg/mod/github.com/krisk/!fuse@v6.4.6+incompatible/dist/fuse.esm.js/*"
    ]
   }
  }

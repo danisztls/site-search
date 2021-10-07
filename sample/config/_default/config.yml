@@ -1,0 +1,7 @@
+---
+baseURL: ""
+languageCode: 'en-us'
+title: 'Lite Search Demo'
+
+outputs:
+  home: ["html", "json"]
