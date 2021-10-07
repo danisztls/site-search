@@ -2,7 +2,7 @@
  * @name     liteSearch
  * @desc     Light and agnostic search UI powered by Fuse.js
  * @author   Daniel Souza <me@posix.dev.br>
- * @version  3.0.1
+ * @version  3.1.0
  * @license  MIT
  */
 
