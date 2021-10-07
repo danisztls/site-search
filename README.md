@@ -24,58 +24,13 @@ An instant search UI component for the Web aimed to be light, agnostic and effec
 - Fuse.js is kind of dead.
 
 ## Demo
-Check the [demo](https://condescending-babbage-f99854.netlify.app/).
+Check the [demo](https://condescending-babbage-f99854.netlify.app/). It uses Hugo.
 
 ## Usage
-### Options
-Do nothing to use the defaults or assign any custom options to `window.searchOpts`.
-
-```html
-<script>
-  window.searchOpts = {
-    // comment keys that aren't going to be used.
-    keys: [
-      { name: "title", weight: 7 },
-      { name: "description", weight: 3 },
-      { name: "content", weight: 1 }
-    ],
-
-    // optionally provide an alias when key names on JSON differ from what the script expects.
-    aliases: [
-      // { input: "title", output: "description" },
-      // { input: "description", output: "title" }
-    ],
-
-    dataPath: "/index.json",
-    // dataPath: "/" + basePath + lang + "/index.json",  // for multilingual 
-    formSelector: "#search",
-    minInputLength: 0,
-    matchStrategy: "fuzzy",
-    maxResults: 10,
-    maxContextLength: 250,
-    includeMatches: false,  // NOTE: use 'exact' for matchStrategy
-    showSectionOnTitle: true,
-    modalFullscreen: false
-  }
-</script>
-```
-
-### JavaScript
-If you're using a builder like [ESBuild](https://esbuild.github.io/) as is the case with Hugo [JS Building](https://gohugo.io/hugo-pipes/js/) you can set it to import and bundle Fuse.js. The script will fetch the data asynchronously so you don't need to defer it's loading.
-
-```html
-<script src="/js/search.js" async></script>
-```
-
-Otherwise you will have to load both `Fuse.js` and `search.js` and  defer loading as to avoid referencing Fuse.js before it's loaded.
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6" defer></script>
-<script src="/js/search.js" defer></script>
-```
-
 ### Data
-By default it expects JSON data at `/index.json` but any other URL can be set.
+It expects JSON data at `/index.json` but this can be changed with `dataPath` option.
+
+Expected keys are `title`, `description`, `url`, `image` *(optional)* and `id` *(optional)*.
 
 ```json
 {
@@ -90,6 +45,39 @@ By default it expects JSON data at `/index.json` but any other URL can be set.
   "title": "Dolor Sit Amet"
 }
 ```
+
+### Use
+```javascript
+import Search from 'lite-search'
+
+Search({
+  // comment keys that aren't going to be used.
+  keys: [
+    { name: "title", weight: 7 },
+    { name: "description", weight: 3 },
+    { name: "content", weight: 1 }
+  ],
+
+  // optionally provide an alias when key names on JSON differ from what the script expects.
+  aliases: [
+    // { input: "title", output: "description" },
+    // { input: "description", output: "title" }
+  ],
+
+  dataPath: "/index.json",
+  // dataPath: "/" + basePath + lang + "/index.json",  // for multilingual 
+  formSelector: "#search",
+  minInputLength: 0,
+  matchStrategy: "fuzzy",
+  maxResults: 10,
+  maxContextLength: 250,
+  includeMatches: false,  // NOTE: use 'exact' for matchStrategy
+  showSectionOnTitle: true,
+  modalFullscreen: false
+})
+```
+
+Use NPM with a bundler like ESBuild or Webpack. Or, as in the case of Hugo, use it's [JS Building](https://gohugo.io/hugo-pipes/js/) feature to build a script. It can be loaded asynchronously.
 
 ### HTML
 ```html
