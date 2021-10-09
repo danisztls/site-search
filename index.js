@@ -26,8 +26,7 @@ function initSearch(opts) {
     // comment keys that aren't going to be used.
     keys: [
       { name: "title", weight: 3 },
-      { name: "description", weight: 2 },
-      { name: "content", weight: 1 }
+      { name: "description", weight: 2 }
     ],
 
     // optionally provide an alias when key names on JSON differ from what the script expects.
