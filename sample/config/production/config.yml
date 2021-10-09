@@ -3,10 +3,10 @@ module:
   imports:
     - path: github.com/krisk/Fuse
       mounts:
-        - source: dist/fuse.esm.js
-          target: assets/fuse.js/dist/fuse.esm.js
+        - source: ./
+          target: assets/fuse.js
 
     - path: github.com/danisztls/lite-search
       mounts:
-        - source: index.js
-          target: assets/lite-search/index.js
+        - source: ./
+          target: assets/lite-search
