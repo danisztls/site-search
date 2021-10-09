@@ -1,6 +1,7 @@
 # Node
 node_modules
 .npmrc
+package-lock.json
 
 # Hugo
 sample/resources
