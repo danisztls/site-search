@@ -2,7 +2,7 @@
  * @name     lite-search
  * @desc     A standalone instant search component.
  * @author   Daniel Souza <me@posix.dev.br>
- * @version  3.2.0
+ * @version  3.2.1
  * @license  MIT
  */
 
