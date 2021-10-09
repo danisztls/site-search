@@ -45,7 +45,8 @@ function initSearch(opts) {
     maxContextLength: 250,
     includeMatches: false,  // NOTE: use 'exact' for matchStrategy
     showSectionOnTitle: true,
-    modalFullscreen: false
+    modalFullscreen: false,
+    debug: false
   }
 
   opts = Object.assign({}, defaults, opts)  // use defaults for missing opts
@@ -82,7 +83,11 @@ function initSearch(opts) {
 
     fetchData()
       .then(data => {
-        window.addEventListener("load", initUI(new Fuse(data, opts.fuse)), { passive: true })
+        const fuseInstance = new Fuse(data, opts.fuse)
+        if (opts.debug)
+          window.fuse = fuseInstance
+
+        window.addEventListener("load", initUI(fuseInstance), { passive: true })
       })
       .catch(console.error)
 
@@ -133,6 +138,9 @@ function initSearch(opts) {
     }
 
     const modal = new Modal(modalEl)
+    if (opts.debug)
+      window.modal = modal
+    
     initUIListeners()
 
     /** Call Fuse and return results

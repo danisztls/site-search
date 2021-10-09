@@ -1,5 +1,9 @@
-{{ $search := resources.Get "search.js" }}
-{{ $js := slice $search | resources.Concat "main.js" }}
+{{ if eq (hugo.Environment) "development" }}
+  <script>window.searchDebug = true</script>
+{{ end }}
+
+{{ $search := resources.Get "js/search.js" }}
+{{ $js := slice $search | resources.Concat "js/main.js" }}
 {{ $js = $js | js.Build }}
 
 <script src="{{ $js.Permalink }}" async></script>
