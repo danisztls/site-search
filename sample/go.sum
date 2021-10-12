@@ -6,5 +6,7 @@ github.com/danisztls/lite-search v3.1.1-0.20211007184606-7dfe3ca442e7+incompatib
 github.com/danisztls/lite-search v3.1.1-0.20211007184606-7dfe3ca442e7+incompatible/go.mod h1:n0972URA6YvxYb/Ky69iBIfcYfl/fmVsVXYGPR+5PDA=
 github.com/danisztls/lite-search v3.2.0+incompatible h1:IJI7+OR4RWxp7IMh0BZ50IoEKTP27HQJjtl6IV+L4ew=
 github.com/danisztls/lite-search v3.2.0+incompatible/go.mod h1:n0972URA6YvxYb/Ky69iBIfcYfl/fmVsVXYGPR+5PDA=
+github.com/danisztls/lite-search v3.3.1-0.20211009180556-18819bd006b6+incompatible h1:YyhTFGFluvj9sBsMTxeFTVnlVIYoiwVMDIxyCCoBFYc=
+github.com/danisztls/lite-search v3.3.1-0.20211009180556-18819bd006b6+incompatible/go.mod h1:n0972URA6YvxYb/Ky69iBIfcYfl/fmVsVXYGPR+5PDA=
 github.com/krisk/Fuse v6.4.6+incompatible h1:YsJpU2Ru5dREwYm+hJXYGTjZF4LGCxn7NRRtNt/HlRM=
 github.com/krisk/Fuse v6.4.6+incompatible/go.mod h1:3moWv8rDjwoKic9nwiPLgZjldkbdTAbtzJHCu/Vsj4A=
