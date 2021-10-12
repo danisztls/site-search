@@ -258,8 +258,7 @@ function initSearch(opts) {
            *  @return {string}
            */
           function hlMatch(text, re) {
-            return text
-              .replace(re, '<mark>$&</mark>')
+              return text ? text.replace(re, '<mark>$&</mark>') : null
 
             /*
              * Could use the matches indexes to highlight but RegExp is doing the
