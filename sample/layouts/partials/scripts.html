@@ -1,9 +1,12 @@
-{{ if eq (hugo.Environment) "development" }}
-  <script>window.searchDebug = true</script>
-{{ end }}
-
 {{ $search := resources.Get "js/search.js" }}
 {{ $js := slice $search | resources.Concat "js/main.js" }}
-{{ $js = $js | js.Build }}
+
+{{ if eq hugo.Environment "development" }}
+  {{ $js = $js | js.Build (dict "sourceMap" "inline" "logLevel" "info") }}
+  <script>window.searchDebug = true</script>
+
+{{ else }}
+  {{ $js = $js | js.Build (dict "minify" "true") }}
+{{ end }}
 
 <script src="{{ $js.Permalink }}" async></script>
