@@ -75,7 +75,22 @@ Search({
 })
 ```
 
-Use NPM with a bundler like ESBuild or Webpack. Or, as in the case of Hugo, use it's [JS Building](https://gohugo.io/hugo-pipes/js/) feature to build a script. It can be loaded asynchronously.
+Use NPM with a bundler like ESBuild. Or, as in the case of Hugo, use it's [JS Building](https://gohugo.io/hugo-pipes/js/) feature to build a script. If you can't or don't want to use NPM you can use the pre-bundled (**lite-search** + **fuse.js**) distributables at `dist/`.
+
+
+```html
+<script src="./lite-search/dist/search.js" async></script>
+```
+
+When the call and the script are enclosed together *(bundled)* they can be loaded asynchronously, otherwise you will have to defer the call until the script is loaded.
+
+```html
+<script src="./lite-search/dist/search.js" async></script>
+<script defer>
+  Search({})
+  ....
+</script>
+```
 
 ### HTML
 ```html
