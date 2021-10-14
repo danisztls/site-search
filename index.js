@@ -1,5 +1,3 @@
-export default Search
-
 /*!
  * Fuse.js v6.4.6 - Lightweight fuzzy-search (http://fusejs.io)
  *
@@ -10,6 +8,9 @@ export default Search
  */
 
 import Fuse from 'fuse.js'
+
+window.Search = Search
+export default Search
 
 function Search(opts) {
   const defaults = {
