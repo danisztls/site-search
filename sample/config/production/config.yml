@@ -1,7 +1,1 @@
 ---
-module:
-  imports:
-    - path: github.com/danisztls/lite-search
-      mounts:
-        - source: ./
-          target: assets/lite-search
