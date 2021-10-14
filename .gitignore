@@ -5,6 +5,7 @@ node_modules
 # Hugo
 sample/resources
 sample/assets/jsconfig.json
+sample/go.sum
 
 # Netlify
 .netlify
