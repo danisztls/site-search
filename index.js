@@ -1,13 +1,4 @@
-/**
- * @name     lite-search
- * @desc     A standalone instant search component.
- * @author   Daniel Souza <me@posix.dev.br>
- * @license  MIT
- */
-
-/* Fix for preserving doc header as Fuse.js does not follow JSDOC
- * Issue: https://github.com/krisk/Fuse/issues/570
- */
+export default Search
 
 /*!
  * Fuse.js v6.4.6 - Lightweight fuzzy-search (http://fusejs.io)
@@ -19,9 +10,8 @@
  */
 
 import Fuse from 'fuse.js'
-export default initSearch
 
-function initSearch(opts) {
+function Search(opts) {
   const defaults = {
     // comment keys that aren't going to be used.
     keys: [

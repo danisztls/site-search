@@ -22,7 +22,11 @@
     "url": "https://github.com/danisztls/lite-search/issues"
   },
   "homepage": "https://github.com/danisztls/lite-search#readme",
+  "devDependencies": {
+    "esbuild": "^0.13.6"
+  },
   "scripts": {
+    "build": "node build.js",
     "test": "echo \"NOTICE: Not running any tests.\""
   }
 }
