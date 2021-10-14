@@ -1,0 +1,8 @@
+{
+  "name": "lite-search-sample",
+  "version": "1.0.0",
+  "dependencies": {
+    "fuse.js": "^6.4.6",
+    "lite-search": "^3.3.1"
+  }
+}

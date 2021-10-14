@@ -1,11 +1,5 @@
 ---
 module:
-  imports:
-    - path: github.com/krisk/Fuse
-      mounts:
-        - source: ./
-          target: assets/fuse.js
-
   mounts:
     - source: assets
       target: assets
