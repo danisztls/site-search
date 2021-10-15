@@ -408,19 +408,23 @@ function Search(opts) {
 
         case "Backspace":
         case "Delete":
+        case "A":
           scrollElement("input", item)
           break
 
         case "ArrowUp":
+        case "W":
           scrollElement("up", item)
           break
 
         case "ArrowDown":
+        case "S":
           scrollElement("down", item)
           break
 
         // TODO: Use local storage to preserve search state when opening item.
         case "Enter":
+        case "D":
           const url = item.querySelector("a").href 
           if (url) 
             location.href = url 
