@@ -26,14 +26,17 @@ fi
 printf "\n${blue}NOTICE:${reset} %s\n" "Versioning NPM..."
 npm version "$1" --git-tag-version=false
 
-printf "${blue}NOTICE:${reset} %s\n" "Building assets..." 
-npm run build && git add "dist/" && git commit -m "Build distributables for v${1}"
+printf "\n${blue}NOTICE:${reset} %s\n" "Building assets..." 
+npm run build
 
 printf "\n${blue}NOTICE:${reset} %s\n" "Versioning Git..."
+git add "dist/" "package.json" "package-lock.json"
+git commit -m "Release v${1}"
 git tag -s "v${1}" -m "v${1}"
 
 printf "\n${blue}NOTICE:${reset} %s\n" "Pushing to Git repository..."
-git push && git push origin "v${1}"
+git push
+git push origin "v${1}"
 
 printf "\n${blue}NOTICE:${reset} %s\n" "Publishing to NPM repository..."
 npm publish
