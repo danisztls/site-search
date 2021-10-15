@@ -408,23 +408,23 @@ function Search(opts) {
 
         case "Backspace":
         case "Delete":
-        case "A":
+        case "a":
           scrollElement("input", item)
           break
 
         case "ArrowUp":
-        case "W":
+        case "w":
           scrollElement("up", item)
           break
 
         case "ArrowDown":
-        case "S":
+        case "s":
           scrollElement("down", item)
           break
 
         // TODO: Use local storage to preserve search state when opening item.
         case "Enter":
-        case "D":
+        case "d":
           const url = item.querySelector("a").href 
           if (url) 
             location.href = url 
@@ -459,8 +459,8 @@ function Search(opts) {
           inputEl.focus()
           item.ariaSelected = false
       }
-     
-      if (target.querySelector("a")) {
+    
+      if (target && target.querySelector("a")) {
         target.querySelector("a").focus()
         target.ariaSelected = true
         
