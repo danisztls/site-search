@@ -298,7 +298,7 @@ function Search(opts) {
       inputEl.addEventListener("keydown", inputKeyBinds)
 
       document.addEventListener("click", (event) => {
-        if (event.srcElement != inputEl)  // toggle UI if click outside input
+        if (formEl.ariaExpanded == "true" && event.srcElement != inputEl)  // hide modal if it's open and click outside input
           toggleUI("document-click")
       }, {passive: true})
 
