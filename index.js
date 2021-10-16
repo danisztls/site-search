@@ -327,6 +327,8 @@ function Search(opts) {
       if (inputEl.value != "") {  // don't show modal before typing 
         modal.show()
         initModalListeners()
+        formEl.ariaExpanded = true
+
         if (opts.modalFullscreen)
           document.body.style.overflow = "hidden"  // prevent page scroll when modal is visible
       }
@@ -336,6 +338,7 @@ function Search(opts) {
       modal.hide()
       removeModalListeners()
       document.body.style.overflow = "unset"
+      formEl.ariaExpanded = false
     }
 
     function clearInput() {
@@ -354,10 +357,9 @@ function Search(opts) {
     function toggleUI(trigger) {
       let action = ""
 
-      if (formEl.ariaExpanded) {
+      if (formEl.ariaExpanded == "true") {
         action = "hide"
         hideModal()
-        formEl.ariaExpanded = false
 
       } else {
         action = "show"
@@ -365,7 +367,6 @@ function Search(opts) {
 
         if (inputEl.value != "") {
           showModal()
-          formEl.ariaExpanded = true
         }
       }
 
