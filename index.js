@@ -337,8 +337,10 @@ function Search(opts) {
     function hideModal() {
       modal.hide()
       removeModalListeners()
-      document.body.style.overflow = "unset"
       formEl.ariaExpanded = false
+      
+      if (opts.modalFullscreen)
+        document.body.style.overflow = "unset"
     }
 
     function clearInput() {
