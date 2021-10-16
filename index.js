@@ -299,7 +299,7 @@ function Search(opts) {
 
       document.addEventListener("click", (event) => {
         if (event.srcElement != inputEl)  // toggle UI if click outside input
-          toggleUI()
+          toggleUI("document-click")
       }, {passive: true})
 
       document.addEventListener("keydown", (event) => {
@@ -307,7 +307,7 @@ function Search(opts) {
           // do not trigger on inputs except search input
           if (event.srcElement.nodeName != "INPUT" || event.srcElement == inputEl) {
             event.preventDefault()
-            toggleUI()
+            toggleUI("global-shortcut")
           }
         }
       })
@@ -348,13 +348,19 @@ function Search(opts) {
       closeModal()
     }
 
-    /** Hide/show input and modal visibility only. */
-    function toggleUI() {
+    /** Hide/show input and modal visibility only.
+     *  @param {string} trigger - source of function call
+     */
+    function toggleUI(trigger) {
+      let action = ""
+
       if (formEl.ariaExpanded) {
+        action = "close"
         closeModal()
         formEl.ariaExpanded = false
 
       } else {
+        action = "open"
         inputEl.focus()
 
         if (inputEl.value != "") {
@@ -362,6 +368,9 @@ function Search(opts) {
           formEl.ariaExpanded = true
         }
       }
+
+      if (opts.debug)
+        console.log(`toggleUI(): {trigger: ${trigger}, action: ${action}}`)
     }
 
     /** Init ephemeral user interaction listeners */
@@ -381,7 +390,7 @@ function Search(opts) {
         case "Escape":
           event.preventDefault()
           clearSearch()
-          toggleUI()
+          toggleUI("input-escape")
           break
 
         case "ArrowDown":
