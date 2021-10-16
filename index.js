@@ -324,15 +324,15 @@ function Search(opts) {
     }
 
     function showModal() {
-      if (inputEl.value != "") {  // don't open modal before typing 
+      if (inputEl.value != "") {  // don't show modal before typing 
         modal.show()
         initModalListeners()
         if (opts.modalFullscreen)
-          document.body.style.overflow = "hidden"  // prevent page scroll when modal is open
+          document.body.style.overflow = "hidden"  // prevent page scroll when modal is visible
       }
     }
 
-    function closeModal() {
+    function hideModal() {
       modal.hide()
       removeModalListeners()
       document.body.style.overflow = "unset"
@@ -345,7 +345,7 @@ function Search(opts) {
 
     function clearSearch() {
       clearInput()
-      closeModal()
+      hideModal()
     }
 
     /** Hide/show input and modal visibility only.
@@ -355,12 +355,12 @@ function Search(opts) {
       let action = ""
 
       if (formEl.ariaExpanded) {
-        action = "close"
-        closeModal()
+        action = "hide"
+        hideModal()
         formEl.ariaExpanded = false
 
       } else {
-        action = "open"
+        action = "show"
         inputEl.focus()
 
         if (inputEl.value != "") {
