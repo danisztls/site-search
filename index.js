@@ -260,9 +260,9 @@ function Search(opts) {
 
           const re = new RegExp(input, 'ig')  // i parameter to 'ignore' case sensitive
           
-          result.title = hlMatch(result.title, re)
-          result.description = hlMatch(result.description, re)
-          
+          result.title = result.title ? hlMatch(result.title, re) : '<mark>Item missing title.</mark>'
+          result.description = result.description ? hlMatch(result.description, re) : '<mark>Item missing description.</mark>'
+
           // classify strings in title containing section 
           if (opts.showSectionOnTitle)
             result.title = result.title
