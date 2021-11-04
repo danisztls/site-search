@@ -41,8 +41,20 @@ function Search(opts) {
 
   opts = Object.assign({}, defaults, opts)  // use defaults for missing opts
 
+  const formEl = document.querySelector(opts.formSelector)
+  const inputEl = formEl.querySelector("input")
+  const modalEl = formEl.querySelector("ul")
+
+  inputEl.addEventListener("keydown", preventInteraction)
+
   initFuse()
 
+  /** Prevent input interaction prior to UI initialization
+   */
+  function preventInteraction(event) {
+    event.preventDefault()
+  }
+  
   /** Initialize the Fuse.js instance
    *  check: https://fusejs.io/api/options.html
    */
@@ -96,16 +108,11 @@ function Search(opts) {
         })
     }
   }
-
+  
   /** Initialize the user interface
    *  @param {object} fuse - Fuse.js instance
    */
   function initUI(fuse) {
-    // TODO: Hide the UI until it's loaded to avoid a race condition in slow connections 
-    const formEl = document.querySelector(opts.formSelector)
-    const inputEl = formEl.querySelector("input")
-    const modalEl = formEl.querySelector("ul")
-
     class Modal {
       constructor(element) {
         this.element = element
@@ -131,7 +138,8 @@ function Search(opts) {
     const modal = new Modal(modalEl)
     if (opts.debug)
       window.modal = modal
-    
+
+    inputEl.removeEventListener("keydown", preventInteraction)
     initUIListeners()
 
     /** Call Fuse and return results
