@@ -1,10 +1,10 @@
 ---
-title: Syntax
+title: API Syntax
 description: Basic API Syntax.
-weight: 10
+weight: 30
 menu:
   docs:
-    parent: "api"
+    parent: "usage"
 ---
 
 Those are the default options.
