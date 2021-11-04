@@ -6,10 +6,10 @@
   position: relative;
   display: flex;
   align-items: center;
+  width: 150px;
   padding: .4em;
   border: solid 1px #ced4da; 
   border-radius: 5px;
-  width: 150px;
   
   &[hidden] {
     background: unset;
@@ -30,10 +30,10 @@
   }
 
   input {
-    font-size: 1rem;
     width: 100%;
-    border: unset; 
     margin-left: .5em;
+    font-size: 1rem;
+    border: unset; 
 
     &:focus-visible {
       outline: unset;
@@ -42,25 +42,25 @@
 
   // results
   ul {
+    visibility: hidden;
+    z-index: 1;
     position: absolute;
     top: 20px;
     left: 0;
     display: flex;
     flex-direction: column;
-    background: white;
+    width: 300%;
+    padding: 0;
     border: 1px solid #00000022;
     border-radius: 5px;
+    background: white;
     box-shadow: 0 0 10px hsla(0, 0%, 0%, .2);
-    visibility: hidden;
-    z-index: 1;
-    padding: 0;
-    width: 300%;
   }
 
   // result
   li {
-    list-style: none;
     padding: .5em;
+    list-style: none;
 
     &:hover {
       background: #dddddddd;
@@ -84,14 +84,14 @@
 
   // title & description
   .meta p {
+    margin: 0;
     font-size: 1em;
     line-height: normal;
-    margin: 0;
 
     // title
     &:first-child {
-      font-weight: 500;
       margin: 0 0 .1em 0;
+      font-weight: 500;
 
       .section {
         color: #24608f; 
@@ -113,9 +113,9 @@
 
     // highlighting
     mark {
-      background-color: hsl(135, 84%, 84%);
       padding: 0;
       border-radius: 2px;
+      background-color: hsl(135, 84%, 84%);
     }
   }
 }
