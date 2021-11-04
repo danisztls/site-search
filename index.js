@@ -331,8 +331,8 @@ function Search(opts) {
       if (inputEl.value != "") {  // don't show modal before typing 
         modal.show()
         initModalListeners()
-        formEl.ariaExpanded = true
-
+        formEl.setAttribute("aria-expanded", "true")
+        
         if (opts.modalFullscreen)
           document.body.style.overflow = "hidden"  // prevent page scroll when modal is visible
       }
@@ -341,7 +341,7 @@ function Search(opts) {
     function hideModal() {
       modal.hide()
       removeModalListeners()
-      formEl.ariaExpanded = false
+      formEl.setAttribute("aria-expanded", "false")
       
       if (opts.modalFullscreen)
         document.body.style.overflow = "unset"
@@ -363,7 +363,7 @@ function Search(opts) {
     function toggleUI(trigger) {
       let action = ""
 
-      if (formEl.ariaExpanded == true) {
+      if (formEl.getAttribute("aria-expanded") == "true") {
         action = "hide"
         hideModal()
 
@@ -381,7 +381,7 @@ function Search(opts) {
     }
 
     function documentOnClick(event) {
-      if (formEl.ariaExpanded == true && event.srcElement != inputEl)  // hide modal if it's open and click outside input
+      if (formEl.getAttribute("aria-expanded") == "true" && event.srcElement != inputEl)  // hide modal if it's open and click outside input
         toggleUI("document-click")
     }
 
