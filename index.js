@@ -38,16 +38,23 @@ function Search(opts) {
     modalFullscreen: false,
     debug: false
   }
-
   opts = Object.assign({}, defaults, opts)  // use defaults for missing opts
 
-  const formEl = document.querySelector(opts.formSelector)
-  const inputEl = formEl.querySelector("input")
-  const modalEl = formEl.querySelector("ul")
+  let fuseInstance = initFuse()
+  let formEl, inputEl, modalEl
 
-  inputEl.addEventListener("keydown", preventInteraction)
+  window.addEventListener("load", () => {
+    formEl = document.querySelector(opts.formSelector)
+    modalEl = formEl.querySelector("ul")
+    inputEl = formEl.querySelector("input")
 
-  initFuse()
+    // Prevent input interaction. Is removed when UI is initiated.
+    inputEl.addEventListener("keydown", preventInteraction)
+  
+    fuseInstance
+      .then(initUI)
+      .catch(console.error)
+  }, { passive: true })
 
   /** Prevent input interaction prior to UI initialization
    */
@@ -58,7 +65,7 @@ function Search(opts) {
   /** Initialize the Fuse.js instance
    *  check: https://fusejs.io/api/options.html
    */
-  function initFuse() {
+  async function initFuse() {
     opts.fuse = {
       location: 0,
       distance: 0,
@@ -83,15 +90,10 @@ function Search(opts) {
         break
     }
 
-    fetchData()
+    return fetchData()
       .then(data => {
-        const fuseInstance = new Fuse(data, opts.fuse)
-        if (opts.debug)
-          window.fuse = fuseInstance
-
-        window.addEventListener("load", initUI(fuseInstance), { passive: true })
+        return new Fuse(data, opts.fuse)
       })
-      .catch(console.error)
 
     /** Fetch data from a JSON endpoint
      *  @return {Object} - data for Fuse()
