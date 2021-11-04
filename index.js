@@ -98,9 +98,10 @@ function Search(opts) {
   }
 
   /** Initialize the user interface
-   *  @param {object} fuse -  Fuse.js instance
+   *  @param {object} fuse - Fuse.js instance
    */
   function initUI(fuse) {
+    // TODO: Hide the UI until it's loaded to avoid a race condition in slow connections 
     const formEl = document.querySelector(opts.formSelector)
     const inputEl = formEl.querySelector("input")
     const modalEl = formEl.querySelector("ul")
@@ -297,11 +298,6 @@ function Search(opts) {
       inputEl.addEventListener("click",  showModal)
       inputEl.addEventListener("keydown", inputKeyBinds)
 
-      document.addEventListener("click", (event) => {
-        if (formEl.ariaExpanded == "true" && event.srcElement != inputEl)  // hide modal if it's open and click outside input
-          toggleUI("document-click")
-      }, {passive: true})
-
       document.addEventListener("keydown", (event) => {
         if (event.key == "/") {  // global shortcut
           // do not trigger on inputs except search input
@@ -359,7 +355,7 @@ function Search(opts) {
     function toggleUI(trigger) {
       let action = ""
 
-      if (formEl.ariaExpanded == "true") {
+      if (formEl.ariaExpanded == true) {
         action = "hide"
         hideModal()
 
@@ -376,13 +372,20 @@ function Search(opts) {
         console.log(`toggleUI(): {trigger: ${trigger}, action: ${action}}`)
     }
 
+    function documentOnClick(event) {
+      if (formEl.ariaExpanded == true && event.srcElement != inputEl)  // hide modal if it's open and click outside input
+        toggleUI("document-click")
+    }
+
     /** Init ephemeral user interaction listeners */
     function initModalListeners() {
       modalEl.addEventListener("keydown", modalKeyBinds)
+      document.addEventListener("click", documentOnClick, {passive: true})
     }
 
     function removeModalListeners() {
       modalEl.removeEventListener("keydown", modalKeyBinds)
+      document.removeEventListener("click", documentOnClick)
     }
 
     /**
