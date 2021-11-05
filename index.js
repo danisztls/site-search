@@ -116,28 +116,31 @@ function Search(opts) {
    */
   function initUI(fuse) {
     class Modal {
-      constructor(element) {
-        this.element = element
+      constructor(target, control) {
+        this.target = target
+        this.control = control
       }
 
       show() {
-        if (this.element.hidden == true)
-          this.element.hidden = false
-          this.element.style.visibility = "visible"
+        if (this.target.hidden == true)
+          this.target.hidden = false
+          this.target.style.visibility = "visible"
+          this.control.setAttribute("aria-expanded", "true")
       }
 
       hide() {
-        if (this.element.hidden == false)
-          this.element.hidden = true
-          this.element.style.visibility = "hidden"
+        if (this.target.hidden == false)
+          this.target.hidden = true
+          this.target.style.visibility = "hidden"
+          this.control.setAttribute("aria-expanded", "false")
       }
 
       isHidden() {
-        return this.element.hidden
+        return this.target.hidden
       }
     }
 
-    const modal = new Modal(modalEl)
+    const modal = new Modal(modalEl, formEl)
     if (opts.debug)
       window.modal = modal
 
@@ -333,7 +336,6 @@ function Search(opts) {
       if (inputEl.value != "") {  // don't show modal before typing 
         modal.show()
         initModalListeners()
-        formEl.setAttribute("aria-expanded", "true")
         
         if (opts.modalFullscreen)
           document.body.style.overflow = "hidden"  // prevent page scroll when modal is visible
@@ -343,7 +345,6 @@ function Search(opts) {
     function hideModal() {
       modal.hide()
       removeModalListeners()
-      formEl.setAttribute("aria-expanded", "false")
       
       if (opts.modalFullscreen)
         document.body.style.overflow = "unset"
