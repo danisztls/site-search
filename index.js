@@ -9,10 +9,7 @@
 
 import Fuse from 'fuse.js'
 
-window.Search = Search
-export default Search
-
-function Search(opts) {
+export default function Search(opts) {
   const defaults = {
     // comment keys that aren't going to be used.
     keys: [
@@ -496,3 +493,5 @@ function Search(opts) {
     }
   }
 }
+
+window.Search = Search
