@@ -2,11 +2,5 @@
 node_modules
 .npmrc
 
-# Hugo
-sample/resources
-sample/public
-sample/assets/jsconfig.json
-sample/go.sum
-
 # Netlify
 .netlify
