@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
 # Release a Node package. 
+# Usage: ./version x.x.x
 
 # @author: Daniel Souza <me@posix.dev.br>
 # @license: MIT
