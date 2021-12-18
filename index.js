@@ -7,6 +7,8 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  */
 
+// TODO: How to use contain: paint with this? The modal should be decoupled from the controls.
+
 import Fuse from 'fuse.js'
 
 export default function Search(opts) {
@@ -40,7 +42,12 @@ export default function Search(opts) {
   let fuseInstance = initFuse()
   let formEl, inputEl, modalEl
 
-  window.addEventListener("load", () => {
+  if (document.readyState === 'loading')
+    document.addEventListener('DOMContentLoaded', DOMHandler, { passive: true })
+  else
+    DOMHandler()
+
+  function DOMHandler() {
     formEl = document.querySelector(opts.formSelector)
     modalEl = formEl.querySelector("ul")
     inputEl = formEl.querySelector("input")
@@ -50,13 +57,14 @@ export default function Search(opts) {
   
     fuseInstance
       .then(initUI)
+      .then(inputEl.removeEventListener("keydown", preventInteraction))
       .catch(console.error)
-  }, { passive: true })
 
-  /** Prevent input interaction prior to UI initialization
-   */
-  function preventInteraction(event) {
-    event.preventDefault()
+    /** Prevent input interaction prior to UI initialization
+     */
+    function preventInteraction(event) {
+      event.preventDefault()
+    }
   }
   
   /** Initialize the Fuse.js instance
@@ -141,7 +149,6 @@ export default function Search(opts) {
     if (opts.debug)
       window.modal = modal
 
-    inputEl.removeEventListener("keydown", preventInteraction)
     initUIListeners()
 
     /** Call Fuse and return results
