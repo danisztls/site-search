@@ -6,7 +6,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  width: 150px;
+  max-width: 150px;
   padding: .4em;
   border: solid 1px #ced4da; 
   border-radius: 5px;
@@ -64,10 +64,11 @@
     &:hover {
       background: #dddddddd;
     }
-    
+
     &:focus-within {
-      outline: solid 1.5px black;
-      border-radius: 1px;
+      outline: solid 2px hsla(0,0%,0%,.5);
+      outline-offset: -5px;
+      border-radius: 7px;
     }
   }
 
@@ -77,7 +78,7 @@
     text-decoration: none;
 
     &:focus-visible {
-      outline: unset;
+      outline: unset; 
     }
   }
 
