@@ -7,8 +7,6 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  */
 
-// TODO: How to use contain: paint with this? The modal should be decoupled from the controls.
-
 import Fuse from 'fuse.js'
 
 export default function Search(opts) {
@@ -27,6 +25,7 @@ export default function Search(opts) {
 
     dataPath: "/index.json",
     // dataPath: "/" + basePath + lang + "/index.json",  // for multilingual 
+    modalSelector: "#search > ul",
     formSelector: "#search",
     minInputLength: 0,
     matchStrategy: "fuzzy",
@@ -48,8 +47,8 @@ export default function Search(opts) {
     DOMHandler()
 
   function DOMHandler() {
-    formEl = document.querySelector(opts.formSelector)
-    modalEl = formEl.querySelector("ul")
+    modalEl = document.querySelector(opts.modalSelector)
+    formEl  = document.querySelector(opts.formSelector)
     inputEl = formEl.querySelector("input")
 
     // Prevent input interaction. Is removed when UI is initiated.
