@@ -3,11 +3,10 @@
     {{ partial "sidebar.html" . }}
     
     <div id="center">
-      <section id="meta">
-        <h1>{{ .Title }}</h1>
-      </section>
-
       <article id="content">
+        <section id="meta">
+          <h1>{{ .Title }}</h1>
+        </section>
         {{ .Content }}
       </article>
     </div>

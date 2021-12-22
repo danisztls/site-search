@@ -1,31 +1,42 @@
 main {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 15vw 60vw 15vw;
+  grid-auto-columns: 200px 1fr 200px;
   align-items: baseline;
-  column-gap: 5vw;
-  row-gap: 1.5em;
+  justify-content: space-between;
+  width: 100%;
   min-height: calc(100vh - 54px); // hide footer from 1st view on shorter pages
   margin: 3rem 0 7rem 0;
+  // overflow-x: hidden;
 }
 
+// TODO: Make sidebar collapsible on small width.
 aside {
   display: flex;
-  flex-direction: column;
+  flex-flow: column nowrap;
   position: sticky;
-  width: 10vw;
   padding: 0 1rem 0 2rem;
 }
 
 #center {
-  margin: 0 0 0 0;
-  width: 60vw;
-  align-self: start;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  margin: 0 2rem 0 0;
 }
 
 article, section {
   display: flex;
-  flex-direction: column;
+  flex-flow: column nowrap;
+}
+
+article {
+  min-width: 50vw;
+  max-width: 70vw;
+
+  #meta {
+    align-self: start;
+  }
 }
 
 header {

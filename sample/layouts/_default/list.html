@@ -3,20 +3,22 @@
     {{ partial "sidebar.html" . }}
 
     <div id="center">
-      <section id="meta">
-        <h1>{{ .Title }}</h1>
-      </section>
+      <article>
+        <section id="meta">
+          <h1>{{ .Title }}</h1>
+        </section>
 
-      <ul>
-        {{ range .Pages }}
-          <li>
-            <div>
-              <a href="{{ .RelPermalink }}"><h2>{{ .Title }}</h2></a>
-              <p>{{ .Description }}</p>
-            </div>
-          </li>
-        {{end}}
-      </ul>
+        <ul>
+          {{ range .Pages }}
+            <li>
+              <div>
+                <a href="{{ .RelPermalink }}"><h2>{{ .Title }}</h2></a>
+                <p>{{ .Description }}</p>
+              </div>
+            </li>
+          {{end}}
+        </ul>
+      </article>
     </div>
   </main>
 {{ end }}
