@@ -6,23 +6,24 @@ main {
   justify-content: space-between;
   width: 100%;
   min-height: calc(100vh - 54px); // hide footer from 1st view on shorter pages
-  margin: 3rem 0 7rem 0;
-  // overflow-x: hidden;
+  box-sizing: border-box;
+  margin: 3em 0 7em 0;
+  padding: 0 2em;
 }
 
-// TODO: Make sidebar collapsible on small width.
-aside {
+
+aside, #center {
   display: flex;
   flex-flow: column nowrap;
+  margin: 0 2em;
+}
+
+aside {
   position: sticky;
-  padding: 0 1rem 0 2rem;
 }
 
 #center {
-  display: flex;
-  flex-flow: column nowrap;
   align-items: center;
-  margin: 0 2rem 0 0;
 }
 
 article, section {
@@ -32,7 +33,7 @@ article, section {
 
 article {
   min-width: 50vw;
-  max-width: 70vw;
+  max-width: 75vw;
 
   #meta {
     align-self: start;
@@ -47,4 +48,22 @@ header {
 
 footer {
   margin: 2em 0 0 0;
+}
+
+// TODO: Make sidebar collapsible on small width.
+@media (max-width: 768px) {
+  main {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    row-gap: 2em;
+    margin-bottom: 4em;
+  }
+
+  aside, #center {
+    margin: 0;
+  }
+
+  form#search {
+    max-width: unset;
+  }
 }
