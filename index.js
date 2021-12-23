@@ -39,7 +39,7 @@ export default function Search(opts) {
   opts = Object.assign({}, defaults, opts)  // use defaults for missing opts
 
   let fuseInstance = initFuse()
-  let formEl, inputEl, modalEl
+  let formEl, inputEl, modalEl, bodyOverflow
 
   if (document.readyState === 'loading')
     document.addEventListener('DOMContentLoaded', DOMHandler, { passive: true })
@@ -50,7 +50,8 @@ export default function Search(opts) {
     modalEl = document.querySelector(opts.modalSelector)
     formEl  = document.querySelector(opts.formSelector)
     inputEl = formEl.querySelector("input")
-
+    bodyOverflow = document.body.style.overflow
+      
     // Prevent input interaction. Is removed when UI is initiated.
     inputEl.addEventListener("keydown", preventInteraction)
   
@@ -350,7 +351,7 @@ export default function Search(opts) {
       removeModalListeners()
       
       if (opts.modalFullscreen)
-        document.body.style.overflow = "unset"
+        document.body.style.overflow = bodyOverflow 
     }
 
     function clearInput() {
