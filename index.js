@@ -108,10 +108,10 @@ export default function Search(opts) {
 
       return fetch(request)
         .then(response => {
-           if (!response.ok) {
-             throw new Error("HTTP error " + response.status)
-           }
-           return response.json()
+          if (!response.ok) {
+            throw new Error("HTTP error " + response.status)
+          }
+          return response.json()
         })
     }
   }
