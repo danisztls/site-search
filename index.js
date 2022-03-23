@@ -323,7 +323,7 @@ export default function Search(opts) {
             toggleUI("global-shortcut")
           }
         }
-      })
+      }, {passive: true})
     }
 
     /** Update search results as user types
