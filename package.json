@@ -16,14 +16,14 @@
     "fuzzy"
   ],
   "dependencies": {
-    "fuse.js": "^6.4.6"
+    "fuse.js": "6.5.3"
   },
   "bugs": {
     "url": "https://github.com/danisztls/lite-search/issues"
   },
   "homepage": "https://github.com/danisztls/lite-search#readme",
   "devDependencies": {
-    "esbuild": "^0.13.6"
+    "esbuild": "^0.14"
   },
   "scripts": {
     "build": "node build.js",
