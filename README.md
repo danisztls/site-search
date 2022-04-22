@@ -1,7 +1,7 @@
 # Search
 An instant search UI component for the Web aimed to be light, agnostic and effective.
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b569fb24-1b63-41d4-bec1-df533ecb262a/deploy-status)](https://app.netlify.com/sites/condescending-babbage-f99854/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b569fb24-1b63-41d4-bec1-df533ecb262a/deploy-status)](https://app.netlify.com/sites/lite-search-example-f99854/deploys)
 
 ## Features
 - instant search
@@ -22,7 +22,7 @@ An instant search UI component for the Web aimed to be light, agnostic and effec
 - Fuse.js is kind of dead.
 
 ## Demo
-Check the [demo](https://condescending-babbage-f99854.netlify.app/). It uses Hugo.
+Check the [demo](https://lite-search-example-f99854.netlify.app/). It uses Hugo.
 
 ## Usage
 ### Data
