@@ -1,5 +1,5 @@
 # Search
-An instant search UI component for the Web aimed to be light, agnostic and effective.
+An instant search UI Web component aimed to be light, agnostic and effective.
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b569fb24-1b63-41d4-bec1-df533ecb262a/deploy-status)](https://app.netlify.com/sites/lite-search-example-f99854/deploys)
 
@@ -15,7 +15,7 @@ An instant search UI component for the Web aimed to be light, agnostic and effec
 - works when offline *(DocSearch doesn't)*
 - works behind authentication *(DocSearch doesn't)*
 - do not track users *(DocSearch doesn't?)*
-- acessibility *(please fill a report if it doesn't work properly with screen readers)*
+- accessibility *(please fill a report if it doesn't work properly with screen readers)*
 
 ## Caveats
 - It does not support context-wise search at headings level as [DocSearch](https://docsearch.algolia.com/) does.
@@ -23,6 +23,36 @@ An instant search UI component for the Web aimed to be light, agnostic and effec
 
 ## Demo
 Check the [demo](https://lite-search-example-f99854.netlify.app/). It uses Hugo.
+
+## Install
+### NPM
+```shell
+npm install lite-search
+```
+
+```javascript
+import Search from 'lite-search'
+
+Search({...})
+```
+
+### Standalone 
+If you can't or don't want to use NPM you can use the bundled (**lite-search** + **fuse.js**) standalone distributables at `dist/`.
+
+*Note: this repository uses Git LFS and you need to have it installed in your environment to successfully clone it.*
+
+```html
+<script src="./lite-search/dist/search.js" async></script>
+```
+
+When the call and the script are enclosed together *(bundled)* they can be loaded asynchronously, otherwise you will have to defer the call until the script is loaded.
+
+```html
+<script src="./lite-search/dist/search.js" async></script>
+<script defer>
+  Search({...})
+</script>
+```
 
 ## Usage
 ### Data
@@ -44,10 +74,8 @@ Expected keys are `title`, `description`, `url`, `image` *(optional)* and `id` *
 }
 ```
 
-### Use
+### JS
 ```javascript
-import Search from 'lite-search'
-
 Search({
   // comment keys that aren't going to be used.
   keys: [
@@ -64,7 +92,8 @@ Search({
 
   dataPath: "/index.json",
   // dataPath: "/" + basePath + lang + "/index.json",  // for multilingual 
-  formSelector: "#search",
+  formSelector: "#search-form",
+  modalSelector: "#search-modal",
   minInputLength: 0,
   matchStrategy: "fuzzy",
   maxResults: 10,
@@ -75,26 +104,9 @@ Search({
 })
 ```
 
-Use NPM with a bundler like ESBuild. Or, as in the case of Hugo, use it's [JS Building](https://gohugo.io/hugo-pipes/js/) feature to build a script. If you can't or don't want to use NPM you can use the pre-bundled (**lite-search** + **fuse.js**) distributables at `dist/`.
-
-
-```html
-<script src="./lite-search/dist/search.js" async></script>
-```
-
-When the call and the script are enclosed together *(bundled)* they can be loaded asynchronously, otherwise you will have to defer the call until the script is loaded.
-
-```html
-<script src="./lite-search/dist/search.js" async></script>
-<script defer>
-  Search({})
-  ....
-</script>
-```
-
 ### HTML
 ```html
-<form id="search" role="search" aria-haspopup="listbox" aria-labelledby="search-label" hidden="true">
+<form id="search-form" role="search" aria-haspopup="listbox" aria-labelledby="search-label" hidden="true">
   <label id="search-label" class="fas fa-search"></label>
 
   <input
